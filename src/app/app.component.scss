@@ -1,0 +1,28 @@
+@use "constants" as constants;
+
+.total-screen {
+  height: calc(100vh - constants.$header-height);
+  margin-top: constants.$header-height;
+}
+
+// app-sidebar {
+//   width: constants.$sidebar-width;
+//   border-right: 1px solid #202225;
+// }
+
+.main-content {
+  box-sizing: border-box;   //as height is set to 100% ie takes all height of .total-screen, the extra padding causes overflow which is then hidden by the parent which is .total-screen
+  // margin-left: constants.$sidebar-width;
+  padding-left: 25px;
+  padding-top: 16px;
+  height: 100%;
+  padding-bottom: 20px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+
+//if login, skip the margin allocated for the sidebar.
+.main-content.login-page {
+  margin-left: 0;
+}
