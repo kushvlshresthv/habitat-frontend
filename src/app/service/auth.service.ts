@@ -11,6 +11,8 @@ export class AuthService {
 
   loggedIn$ = this.loggedIn.asObservable();
 
+  authStatus = false;
+
   constructor(private httpClient: HttpClient, private router: Router) {
     this.checkAuthOnLoad();
   }
@@ -22,12 +24,26 @@ export class AuthService {
       })
       .subscribe({
         next: (isAuth) => {
-          this.loggedIn.next(true);
+	  console.log(isAuth);
+	  this.authStatus = true;
+          this.loggedIn.next(this.authStatus);
         },
 	error: (error) => {
-	  this.loggedIn.next(false);
+	  console.log(error);
+	  this.authStatus = false;
+	  this.loggedIn.next(this.authStatus);
 	}
       });
+  }
+
+  isAuthenticated() {
+    return this.authStatus;
+  }
+
+  removeAuthentication() {
+    this.authStatus = false;
+    this.loggedIn.next(this.authStatus);
+    this.router.navigateByUrl('/login');
   }
 
   subscription!: Subscription;
@@ -47,8 +63,9 @@ export class AuthService {
       .subscribe({
         next: (response) => {
           console.log(response.message);
-          this.router.navigateByUrl('/home/my-committees');
-	  this.loggedIn.next(true);
+          this.router.navigateByUrl('/home');
+	  this.authStatus = true;
+	  this.loggedIn.next(this.authStatus);
         },
         error: (error) => {
           console.log(error.error.message);

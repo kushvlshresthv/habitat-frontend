@@ -11,7 +11,7 @@
   right: 0; // distance from right of viewport
   height: constants.$header-height;
 
-  background: colors.$color-background-main;
+  background: colors.$color-background-primary;
   z-index: 9999; // make sure it's above everything *
 
   box-sizing: border-box;
@@ -20,7 +20,7 @@
 
 a {
     text-decoration: none;
-    color: colors.$color-text-primary;
+    color: colors.$color-font-primary;
 }
 
 .logo {
