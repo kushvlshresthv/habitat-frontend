@@ -11,7 +11,7 @@
   justify-content: center;
   min-height: 70vh;
   padding: 20px;
-  background-color: colors.$color-background-main;
+  background-color: colors.$color-background-primary;
 }
 
 .login-card {
@@ -29,7 +29,7 @@
   text-align: center;
   margin: 0 0 15px 0;
   letter-spacing: -0.5px;
-  color: colors.$color-text-primary;
+  color: colors.$color-font-primary;
   line-height: 1;
 }
 
@@ -74,7 +74,7 @@ label {
 
 //astrick in forms
 .required-astrick {
-  color: colors.$color-text-error;
+  color: colors.$color-font-error;
   padding-left: 4px;
   font-size: 0.9rem;
   display: inline-block;
@@ -86,13 +86,13 @@ label {
   background: colors.$color-background-input;
   border: 1px solid colors.$color-border-primary;
   border-radius: 6px;
-  color: colors.$color-text-primary;
+  color: colors.$color-font-primary;
   font-size: constants.$font-normal;
   font-family: inherit;
   transition: all 0.2s ease;
 
   &::placeholder {
-    color: colors.$color-text-muted;
+    color: colors.$color-font-muted;
   }
 
   &:focus {
@@ -108,13 +108,13 @@ label {
   }
 
   &.error {
-    border-color: colors.$color-text-error;
+    border-color: colors.$color-font-error;
   }
 }
 
 
 .field-error{
-  color: colors.$color-text-error;
+  color: colors.$color-font-error;
   font-size: constants.$font-medium;
   font-weight: constants.$font-weight-medium;
   margin: 0;
@@ -163,14 +163,14 @@ label {
 
   &:disabled {
     background: colors.$color-button-primary-active;
-    color: colors.$color-button-disabled-text;
+    color: colors.$color-button-disabled-font;
   }
 }
 
 form label, .data-label {
   font-size: constants.$font-small;
   font-weight: constants.$font-weight-medium;
-  color: colors.$color-text-secondary;
+  color: colors.$color-font-secondary;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }

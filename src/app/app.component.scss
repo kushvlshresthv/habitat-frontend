@@ -1,14 +1,14 @@
 @use "constants" as constants;
 
-.total-screen {
+.screen-with-sidebars {
   height: calc(100vh - constants.$header-height);
   margin-top: constants.$header-height;
 }
 
-// app-sidebar {
-//   width: constants.$sidebar-width;
-//   border-right: 1px solid #202225;
-// }
+app-left-sidebar {
+  width: constants.$sidebar-width;
+  border-right: 1px solid #202225;
+}
 
 .main-content {
   box-sizing: border-box;   //as height is set to 100% ie takes all height of .total-screen, the extra padding causes overflow which is then hidden by the parent which is .total-screen
