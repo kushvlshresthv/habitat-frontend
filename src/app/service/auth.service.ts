@@ -11,7 +11,7 @@ export class AuthService {
 
   loggedIn$ = this.loggedIn.asObservable();
 
-  authStatus: boolean | null = null;
+  authStatus = true;
 
   constructor(private httpClient: HttpClient, private router: Router) {
   }
@@ -23,15 +23,17 @@ export class AuthService {
   checkAuthOnLoad() {
     console.log("sending request to /isAuthenticated");
     this.httpClient
-      .get<ApiResponse<boolean>>(`${BACKEND_URL}/isAuthenticated`, {
+      .get<ApiResponse<Object>>(`${BACKEND_URL}/isAuthenticated`, {
         withCredentials: true,
       })
       .subscribe({
         next: (isAuth) => {
-	  console.log("received response from /isAuthenticatd");
-	  console.log(isAuth.mainBody);
-	  this.authStatus = isAuth.mainBody;
-          this.loggedIn.next(this.authStatus as boolean);
+	  if(isAuth.message == "true") {
+	    this.authStatus = true;
+	  } else {
+	    this.authStatus = false;
+	  }
+          this.loggedIn.next(this.authStatus);
         },
 	error: (error) => {
 	  console.log(error);
@@ -69,13 +71,12 @@ export class AuthService {
         next: (response) => {
 	  this.authStatus = true;
 	  this.loggedIn.next(this.authStatus);
-	  console.log("login is successful");
-	  console.log(this.authStatus);
           this.router.navigateByUrl('/home');
         },
         error: (error) => {
           console.log(error.error.message);
 	  this.authStatus = false;
+	  this.loggedIn.next(this.authStatus);
           this.router.navigateByUrl('/login');
         },
       });

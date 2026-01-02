@@ -12,12 +12,6 @@ export function isNotAuthenticated(
   const authStatus = authService.isAuthenticated();
   console.log("notAuthenticatedGuardCalled");
   console.log(authStatus);
-  if(authStatus == null) {
-    //when auth service has not completed /isAuthenticated request(during application startup/first loads)
-    //redirect to home, if no data, interceptor again redirects to the login page
-
-    return of(router.parseUrl("/home"));
-  }
   if(!authStatus) {
     return of(true);
   } else {

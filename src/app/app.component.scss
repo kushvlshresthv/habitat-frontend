@@ -1,4 +1,5 @@
 @use "constants" as constants;
+@use "colors" as colors;
 
 .screen-with-sidebars {
   height: calc(100vh - constants.$header-height);
@@ -9,12 +10,12 @@
 }
 
 app-left-sidebar {
-    border: 1px solid red;
+    border-right: 1px solid colors.$color-border-primary;
     width: 60px;
 }
 
 app-right-sidebar {
-    border: 1px solid green;
+    border-left: 1px solid colors.$color-border-primary;
     width: 300px;
 }
 
@@ -22,7 +23,10 @@ app-right-sidebar {
   flex-grow: 1;
   overflow: auto;
   scrollbar-gutter: stable;
-  border: 1px solid yellow;
+}
+
+.screen-with-sidebars {
+    // padding: 0px 20px;
 }
 
 
