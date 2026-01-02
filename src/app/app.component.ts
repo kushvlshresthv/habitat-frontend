@@ -2,8 +2,8 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { AuthService } from './service/auth.service';
-import { LeftSidebarComponent } from './login/left-sidebar/left-sidebar.component';
-import { RightSidebarComponent } from './login/right-sidebar/right-sidebar.component';
+import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
+import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
 
 @Component({
   selector: 'app-root',

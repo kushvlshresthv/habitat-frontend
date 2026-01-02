@@ -3,26 +3,30 @@
 .screen-with-sidebars {
   height: calc(100vh - constants.$header-height);
   margin-top: constants.$header-height;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 app-left-sidebar {
-  width: constants.$sidebar-width;
-  border-right: 1px solid #202225;
+    border: 1px solid red;
+    width: 60px;
 }
 
-.main-content {
-  box-sizing: border-box;   //as height is set to 100% ie takes all height of .total-screen, the extra padding causes overflow which is then hidden by the parent which is .total-screen
-  // margin-left: constants.$sidebar-width;
-  padding-left: 25px;
-  padding-top: 16px;
-  height: 100%;
-  padding-bottom: 20px;
+app-right-sidebar {
+    border: 1px solid green;
+    width: 300px;
+}
+
+.main-screen {
+  flex-grow: 1;
   overflow: auto;
   scrollbar-gutter: stable;
+  border: 1px solid yellow;
 }
 
 
-//if login, skip the margin allocated for the sidebar.
-.main-content.login-page {
-  margin-left: 0;
+//if login, hide the sidebars
+app-left-sidebar.login-page, app-right-sidebar.login-page {
+    display: none;
 }
