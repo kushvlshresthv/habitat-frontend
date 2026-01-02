@@ -1,6 +1,6 @@
 <a class="logo-link" routerLink="/home"> <div class="logo">Habitat</div></a>
 <!-- <div class="btn create">Create</div> -->
-<div class="svg-icon">
+<div class="svg-icon" (click)="onCreateSvgClick()" [class.show]="showCreateOptions">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#c1c2c2">
     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -15,7 +15,7 @@
     </g>
   </svg>
 
-  <div class="create-options">
+  <div class="create-options" [class.show]="showCreateOptions">
     <div class="option habit">Create New Habit</div>
     <div class="option todo">Create New Todo</div>
   </div>

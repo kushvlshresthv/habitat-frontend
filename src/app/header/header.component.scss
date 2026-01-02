@@ -51,28 +51,26 @@ svg {
 .create-options {
     position: absolute;
     right: 0;
-    top: 40px;
-    border: 1px solid colors.$color-border-primary;
-    display: flex;
+    top: 55px;
     flex-direction: column;
-    background-color: colors.$color-background-card;
+    background-color: colors.$color-background-secondary;
     display: none;
+    padding: 10px 20px;
+    gap: 20px;
+    border-radius: 12px;
+    font-size: constants.$font-normal;
 }
 
-.svg-icon:hover .create-options {
-    display: block;;
+.create-options.show {
+    display: flex;
 }
 
-.svg-icon:hover svg path {
+.svg-icon:hover svg path, .show svg path  {
     fill: colors.$color-border-focus;
 }
 
 .create-options > *:not(:last-child) {
-    border-bottom: 1px solid colors.$color-border-primary;
-}
-
-.option {
-    padding: 5px 20px;
+    // border-bottom: 1px solid colors.$color-border-primary;
 }
 
 
