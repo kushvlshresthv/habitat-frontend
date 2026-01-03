@@ -21,7 +21,6 @@ export class AuthService {
   }
 
   checkAuthOnLoad() {
-    console.log("sending request to /isAuthenticated");
     this.httpClient
       .get<ApiResponse<Object>>(`${BACKEND_URL}/isAuthenticated`, {
         withCredentials: true,

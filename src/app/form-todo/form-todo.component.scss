@@ -27,7 +27,56 @@
   border-bottom: 1px solid colors.$color-border-primary;
 }
 
-.member-details-panel {
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 3px;
+  font-size: constants.$font-normal;
+  font-weight: constants.$font-weight-semibold;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background: colors.$color-button-primary;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;  //cursor becomes a cross sign
+  }
+
+  &:not(:disabled):hover {
+    transform: translateY(-1px); //move 1px up
+    background: colors.$color-button-primary-hover;
+  }
+
+  &:not(:disabled):active {
+    transform: translateY(0); //move back to original position
+  }
+
+  &:not(:disabled):active {
+    background: colors.$color-button-primary-active;
+  }
+
+  &:disabled {
+    background: colors.$color-button-primary-active;
+    color: colors.$color-button-disabled-font;
+  }
+}
+
+
+.save-button {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+  font-size: 14px;
+  padding: 7px 12px;
+}
+
+
+
+.todo-details-panel {
   width:100%;
   background: colors.$color-background-card;
   min-height: 0;
@@ -41,8 +90,8 @@
   flex-grow: 0;
   min-height: 0vh;
   max-height: 50vh;
-  padding: 15px;
-  gap: 30px;
+  padding: 20px;
+  gap: 24px;
   padding-bottom: 30px;
 
   &::-webkit-scrollbar {
@@ -69,17 +118,39 @@
 
 .form-row {
   display: flex;
-  gap: 16px;
+  gap: 20px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 8px;
 
   &.half-width {
     flex: 1;
   }
+}
+
+.time-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-picker-field {
+  flex: 1;
+}
+
+.time-select {
+  width: 100%;
+  cursor: pointer;
+}
+
+.time-separator {
+  color: colors.$color-font-secondary;
+  font-size: constants.$font-large;
+  font-weight: constants.$font-weight-semibold;
+  padding: 0 4px;
 }
 
 

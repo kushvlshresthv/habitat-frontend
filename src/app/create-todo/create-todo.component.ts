@@ -13,7 +13,7 @@ import { TodoCreation } from '../models/models';
 export class CreateTodoComponent {
   todoFormData: TodoCreation = {
     description: '',
-    deadlineDate: '',
+    deadlineDate: new Date().toISOString().split('T')[0],
     deadlineTime: '',
     estimatedCompletionTimeMinutes:59,
   };
@@ -22,7 +22,10 @@ export class CreateTodoComponent {
     private httpClient: HttpClient,
     private router: Router,
     // private popupService: PopupService,
-  ) {}
+  ) {
+    console.log("Todays date");
+    console.log(new Date().toISOString().split('T')[0]);
+  }
 
   onFormSave(requestBody: TodoCreation) {
     console.log('onSubmitted called');

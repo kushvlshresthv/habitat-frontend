@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, output, viewChild } from '@angular/core';
+import { Component, ElementRef, input, OnInit, output, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TodoCreation } from '../models/models';
 import { SafeCloseDialog } from '../directive/safe-close-dialog.directive';
@@ -9,7 +9,7 @@ import { SafeCloseDialog } from '../directive/safe-close-dialog.directive';
   templateUrl: './form-todo.component.html',
   styleUrl: './form-todo.component.scss',
 })
-export class FormTodoComponent {
+export class FormTodoComponent implements OnInit {
   //outputs
   formSaveEvent = output<TodoCreation>();
 
@@ -33,7 +33,7 @@ export class FormTodoComponent {
     estimatedCompletionTimeMinutes: FormControl<number>;
   }>;
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.description = new FormControl(this.todoFormData().description,{ nonNullable: true, validators:  [
       Validators.required,
       Validators.minLength(2),
@@ -47,6 +47,8 @@ export class FormTodoComponent {
     this.deadlineTime = new FormControl(this.todoFormData().deadlineTime,{nonNullable: true, validators:  [
       Validators.required,
     ]} );
+
+
     this.estimatedCompletionTimeMinutes = new FormControl(this.todoFormData().estimatedCompletionTimeMinutes, {nonNullable: true, validators: [
       Validators.required,
     ]});
@@ -89,6 +91,8 @@ export class FormTodoComponent {
     if (this.isEditPage()) return;
 
     const formValue = this.todoFormGroup.getRawValue();
+    console.log("saving");
+    console.log(formValue);
 
     // Check if at least one field has some value
     const hasData = Object.values(formValue).some(
@@ -108,8 +112,6 @@ export class FormTodoComponent {
     //restore form normally ie restores the FormGroup
     const savedData = localStorage.getItem(this.FORM_NAME);
     if (savedData) {
-      console.log('Found the saved Data');
-      console.log(savedData);
       try {
         const parsedData = JSON.parse(savedData);
         this.todoFormGroup.patchValue(parsedData); // prefill the form
