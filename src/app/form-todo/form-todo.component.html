@@ -1,0 +1,111 @@
+<dialog
+  class="main-dialog"
+  appSafeCloseDialog
+  [customSaveForm]="saveFormData"
+  [customRestoreForm]="restoreFormData"
+  #create_todo_dialog
+>
+  <div class="member-details-panel">
+    <div class="panel-header">
+      <h2>Create New Member</h2>
+      <p class="panel-subtitle">Add a new member to the system</p>
+      <!-- TODO: only if form data is valid, enable the save button  -->
+      <button class="btn btn-primary save-button" (click)="onFormSave($event)">
+        Save
+      </button>
+    </div>
+
+    <form [formGroup]="todoFormGroup" class="actual-form">
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="control-description"
+            >First Name <span class="required-astrick">*</span></label
+          >
+          <input
+            id="control-description"
+            type="text"
+            formControlName="description"
+            class="form-input"
+            placeholder="Enter description"
+            [class.error]="
+              description.touched && description.dirty && description.invalid
+            "
+            spellcheck="false"
+            autocomplete="off"
+          />
+          @if ((description.touched && description.dirty) || showAllErrors) {
+            @if (description.errors?.["required"]) {
+              <p class="field-error">First name is required</p>
+            } @else if (description.errors?.["minlength"]) {
+              <p class="field-error">
+                Description should be at least 2 characters long
+              </p>
+            } @else if (description.errors?.["maxlength"]) {
+              <p class="field-error">
+                Description should be under 50 characters
+              </p>
+            }
+          }
+        </div>
+
+        <div class="form-group half-width">
+          <label for="control-deadline-date"
+            >Deadline Date<span class="required-astrick">*</span></label
+          >
+          <input
+            id="control-deadline-date"
+            type="date"
+            formControlName="deadlineDate"
+            class="form-input"
+            [class.error]="
+              deadlineDate.touched && deadlineDate.dirty && deadlineDate.invalid
+            "
+          />
+          @if ((deadlineDate.touched && deadlineDate.dirty) || showAllErrors) {
+            @if (deadlineDate.errors?.["required"]) {
+              <p class="field-error">(Deadline date is required)</p>
+            } 
+          }
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="control-title"
+            >Deadline Time <span class="required-astrick">*</span></label
+          >
+          <input
+            id="control-title"
+            type="time"
+            formControlName="deadlineTime"
+            class="form-input"
+            [class.error]="deadlineTime.touched && deadlineTime.dirty && deadlineTime.invalid"
+          />
+          @if ((deadlineTime.touched && deadlineTime.dirty) || showAllErrors) {
+            @if (deadlineTime.errors?.["required"]) {
+              <p class="field-error">(Deadline Time is required)</p>
+            }
+          }
+        </div>
+
+        <div class="form-group half-width">
+          <label for="control-post"
+            >Estimated Time For Completion(Minutes) <span class="required-astrick">*</span></label
+          >
+          <input
+            id="control-post"
+            type="number"
+            formControlName="expectedCompletionTimeMinutes"
+            class="form-input"
+            [class.error]="estimatedCompletionTimeMinutes.touched && estimatedCompletionTimeMinutes.dirty && estimatedCompletionTimeMinutes.invalid"
+          />
+          @if ((estimatedCompletionTimeMinutes.touched && estimatedCompletionTimeMinutes.dirty) || showAllErrors) {
+            @if (estimatedCompletionTimeMinutes.errors?.["required"]) {
+              <p class="field-error">(Estimated completion time is required)</p>
+            }
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</dialog>
