@@ -3,3 +3,9 @@ export interface TodoCreation {
   deadlineDate: string;
   estimatedCompletionTimeMinutes: number;
 }
+export interface Popup {
+  message: string;
+  type: "Error" | "Success";
+  displayTime: number;
+}
+

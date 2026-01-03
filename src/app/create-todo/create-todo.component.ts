@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TodoCreation } from '../models/models';
 import { BACKEND_URL } from '../utils/global_constants';
+import { PopupService } from '../popup/popup.service';
 
 @Component({
   selector: 'app-create-todo',
@@ -21,7 +22,7 @@ export class CreateTodoComponent {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    // private popupService: PopupService,
+    private popupService: PopupService,
   ) {
     console.log(new Date().toISOString().split('T')[0]);
   }
@@ -36,14 +37,12 @@ export class CreateTodoComponent {
         next: (response) => {
 	  console.log(response);
 	  this.router.navigateByUrl('/home');
-          // this.popupService.showPopup('Member Created!', 'Success', 2000);
+          this.popupService.showPopup('Todo Created!', 'Success', 2000);
         },
         error: (error) => {
           console.log(error.error.message);
-          // this.popupService.showPopup('Member Creation Failed!', 'Error', 2000);
+          this.popupService.showPopup('Todo Creation Failed!', 'Error', 2000);
         },
       });
   }
-
-
 }

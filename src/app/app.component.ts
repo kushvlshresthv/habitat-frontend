@@ -4,10 +4,11 @@ import { HeaderComponent } from './header/header.component';
 import { AuthService } from './service/auth.service';
 import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
 import { RightSidebarComponent } from './right-sidebar/right-sidebar.component';
+import { PopupComponent } from './popup/popup.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, LeftSidebarComponent, RightSidebarComponent],
+  imports: [RouterOutlet, HeaderComponent, LeftSidebarComponent, RightSidebarComponent, PopupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
