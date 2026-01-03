@@ -23,13 +23,11 @@ export class FormTodoComponent implements OnInit {
   //setting aliases for this.memberFormGroup().controls
   description!: FormControl<string>;
   deadlineDate!: FormControl<string>;
-  deadlineTime!: FormControl<string>;
   estimatedCompletionTimeMinutes!: FormControl<number>;
 
   todoFormGroup!: FormGroup<{
     description: FormControl<string>;
     deadlineDate: FormControl<string>;
-    deadlineTime: FormControl<string>;
     estimatedCompletionTimeMinutes: FormControl<number>;
   }>;
 
@@ -69,9 +67,6 @@ export class FormTodoComponent implements OnInit {
       Validators.required,
     ]},);
 
-    this.deadlineTime = new FormControl(this.todoFormData().deadlineTime,{nonNullable: true, validators:  [
-      Validators.required,
-    ]} );
 
 
     this.estimatedCompletionTimeMinutes = new FormControl(this.todoFormData().estimatedCompletionTimeMinutes, {nonNullable: true, validators: [
@@ -81,7 +76,6 @@ export class FormTodoComponent implements OnInit {
     this.todoFormGroup = new FormGroup({
       description: this.description,
       deadlineDate: this.deadlineDate,
-      deadlineTime: this.deadlineTime,
       estimatedCompletionTimeMinutes: this.estimatedCompletionTimeMinutes,
     });
   }
@@ -104,7 +98,6 @@ export class FormTodoComponent implements OnInit {
     const todoCreation: TodoCreation = {
       description: this.description.value,
       deadlineDate : this.deadlineDate.value,
-      deadlineTime : this.deadlineTime.value,
       estimatedCompletionTimeMinutes : this.estimatedCompletionTimeMinutes.value,
     };
     localStorage.removeItem(this.FORM_NAME);
