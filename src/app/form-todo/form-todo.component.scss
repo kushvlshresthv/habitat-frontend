@@ -1,5 +1,5 @@
-@use "colors" as colors;
-@use "constants" as constants;
+@use 'colors' as colors;
+@use 'constants' as constants;
 
 .main-dialog {
   width: 600px;
@@ -9,6 +9,7 @@
 
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  border-radius: 5px;
 
   &[open] {
     display: flex; //flex container only when the dialog is open
@@ -16,68 +17,61 @@
 
   //if we keep display: flex outside, the dialog content will be shown even when the dialog is closed
 
-
   &::backdrop {
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
   }
 }
 
-.panel-header {
-  border-bottom: 1px solid colors.$color-border-primary;
-}
-
-.btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 3px;
-  font-size: constants.$font-normal;
-  font-weight: constants.$font-weight-semibold;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  overflow: hidden;
-  color: white;
-  background: colors.$color-button-primary;
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;  //cursor becomes a cross sign
-  }
-
-  &:not(:disabled):hover {
-    transform: translateY(-1px); //move 1px up
-    background: colors.$color-button-primary-hover;
-  }
-
-  &:not(:disabled):active {
-    transform: translateY(0); //move back to original position
-  }
-
-  &:not(:disabled):active {
-    background: colors.$color-button-primary-active;
-  }
-
-  &:disabled {
-    background: colors.$color-button-primary-active;
-    color: colors.$color-button-disabled-font;
-  }
-}
-
-
 .save-button {
   position: absolute;
   right: 15px;
-  top: 25px;
+  top: 35px;
   font-size: 14px;
   padding: 7px 12px;
 }
 
+///////////////////////////////////////////////////////
+//Styling for custom drop down for estimated time selection
+.custom-dropdown-for-estimated-time {
+  box-sizing: border-box;
+  position: static;
+}
 
+.dropdown-options {
+  position: fixed;
+  width: 100px; //keep the dropdown options width same as input field
+  max-height: 300px;
+  overflow-y: auto;
+  background: colors.$color-background-input;
+  border: 1px solid colors.$color-border-primary;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  margin-top: 4px;
+}
+
+.dropdown-option {
+  padding: 10px 16px;
+  cursor: pointer;
+  color: colors.$color-font-primary;
+  transition: background 0.2s ease;
+  border: 1px solid colors.$color-border-primary;
+
+  &:hover:not(.disabled) {
+    background: colors.$color-background-input-hover;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    color: colors.$color-font-muted;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////
 
 .todo-details-panel {
-  width:100%;
+  width: 100%;
   background: colors.$color-background-card;
   min-height: 0;
   display: flex;
@@ -112,10 +106,6 @@
   }
 }
 
-.form-input {
-  font-size: constants.$font-large;
-}
-
 .form-row {
   display: flex;
   gap: 20px;
@@ -131,28 +121,9 @@
   }
 }
 
-.time-picker-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+textarea.form-input {
+  height: 130px;
 }
-
-.time-picker-field {
-  flex: 1;
-}
-
-.time-select {
-  width: 100%;
-  cursor: pointer;
-}
-
-.time-separator {
-  color: colors.$color-font-secondary;
-  font-size: constants.$font-large;
-  font-weight: constants.$font-weight-semibold;
-  padding: 0 4px;
-}
-
 
 .save-button {
   position: absolute;
@@ -168,15 +139,13 @@ select:has(+ .field-error) {
   border: 1px solid colors.$color-font-error !important;
 }
 
-
-.field-error{
+.field-error {
   color: colors.$color-font-error;
   font-size: constants.$font-medium;
   font-weight: constants.$font-weight-medium;
   margin: 0;
   padding: 0.25rem 0;
 }
-
 
 //astrick in forms
 .required-astrick {
@@ -187,16 +156,14 @@ select:has(+ .field-error) {
   padding-bottom: 5px;
 }
 
-
-
-form label, .data-label {
+form label,
+.data-label {
   font-size: constants.$font-small;
   font-weight: constants.$font-weight-medium;
   color: colors.$color-font-secondary;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
 
 .form-input {
   padding: 12px 20px;
@@ -207,6 +174,9 @@ form label, .data-label {
   font-size: constants.$font-normal;
   font-family: inherit;
   transition: all 0.2s ease;
+  font-size: constants.$font-large;
+  width: 100%;
+  box-sizing: border-box;
 
   &::placeholder {
     color: colors.$color-font-muted;
@@ -229,72 +199,113 @@ form label, .data-label {
   }
 }
 
-
 //heading section of the form
 .panel-header {
-  padding: 10px;
-  border-bottom: 1px solid #202225;
-  background: colors.$color-background-input;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 2px;
-  //padding for the header for left and right is kept same as padding for .actual-form
-  padding: 20px 15px;
-
+  flex-direction: row;
+  padding: 10px 20px;
+  border-bottom: 1px solid colors.$color-border-primary;
+  background: colors.$color-background-input;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
 
   h2 {
     font-size: constants.$font-xl;
     font-weight: constants.$font-weight-semibold;
     color: colors.$color-font-primary;
     margin: 0 0 4px 0;
-    line-height:1; 
+    line-height: 1.5;
   }
 
-  .panel-subtitle {
-    font-size: constants.$font-medium;
-    color: colors.$color-font-secondary;
-    margin: 0;
-    line-height: 1.3;
-  }
-}
+  .save-btn {
+    width: fit-content;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: constants.$font-normal;
+    font-weight: constants.$font-weight-semibold;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    color: white;
+    background: colors.$color-button-primary;
 
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed; //cursor becomes a cross sign
+    }
 
+    &:not(:disabled):hover {
+      transform: translateY(-1px); //move 1px up
+      background: colors.$color-button-primary-hover;
+    }
 
-@media (max-width: 768px) {
-  .main-dialog {
-    width: 90vw;
-    height: fit-content;
-    border-radius: 5px;
-  }
+    &:not(:disabled):active {
+      transform: translateY(0); //move back to original position
+    }
 
-  .member-details-panel {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 0;
-  }
+    &:not(:disabled):active {
+      background: colors.$color-button-primary-active;
+    }
 
-  .actual-form {
-    align-self: stretch;
-    min-width: 0;
-    min-height: 0;
-    flex-grow: 1;
-  }
-
-  .form-row {
-    min-width: 0;
-    min-height: 0;
-  }
-
-  .form-group {
-    min-width: 0;
-    min-height: 0;
-  }
-
-  input {
-    min-width: 0;
+    &:disabled {
+      background: colors.$color-button-primary-active;
+      color: colors.$color-button-disabled-font;
+    }
   }
 }
 
+.form-input[type="date"] {
+  //render calendar in dark mode
+  color-scheme: dark;
+}
 
+//Customizing the Calendar Icon
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+
+input[type="number"] {
+  color-scheme: dark;
+}
+
+
+// @media (max-width: 768px) {
+//   .main-dialog {
+//     width: 90vw;
+//     height: fit-content;
+//     border-radius: 5px;
+//   }
+
+//   .member-details-panel {
+//     display: flex;
+//     flex-direction: column;
+//     min-width: 0;
+//     min-height: 0;
+//   }
+
+//   .actual-form {
+//     align-self: stretch;
+//     min-width: 0;
+//     min-height: 0;
+//     flex-grow: 1;
+//   }
+
+//   .form-row {
+//     min-width: 0;
+//     min-height: 0;
+//   }
+
+//   .form-group {
+//     min-width: 0;
+//     min-height: 0;
+//   }
+
+//   input {
+//     min-width: 0;
+//   }
+// }

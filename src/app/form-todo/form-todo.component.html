@@ -1,15 +1,11 @@
-<dialog
-  class="main-dialog"
-  #create_todo_dialog
->
-    <!-- appSafeCloseDialog
+<dialog class="main-dialog" #create_todo_dialog>
+  <!-- appSafeCloseDialog
 	 [customSaveForm]="saveFormData"
 	 [customRestoreForm]="restoreFormData" -->
-    <div class="todo-details-panel">
+  <div class="todo-details-panel">
     <div class="panel-header">
-      <h2>Create New Todo</h2>
-      <p class="panel-subtitle">Schedule a new to Todo</p>
-      <button class="btn save-button" (click)="onFormSave($event)">Save</button>
+      <h2>TODO</h2>
+      <button class="save-btn" (click)="onFormSave($event)">Save</button>
     </div>
 
     <form [formGroup]="todoFormGroup" class="actual-form">
@@ -49,65 +45,79 @@
           />
           @if ((deadlineDate.touched && deadlineDate.dirty) || showAllErrors) {
             @if (deadlineDate.errors?.['required']) {
-              <p class="field-error">(Deadline date is required)</p>
+              <p class="field-error">Deadline date is required</p>
             }
           }
-
-          <!-- <label for="control-title">Deadline Time <span class="required-astrick">*</span></label>
-		  <input
-		  id="control-title"
-		  type="time"
-		  formControlName="deadlineTime"
-		  class="form-input"
-		  [class.error]="deadlineTime.touched && deadlineTime.dirty && deadlineTime.invalid"
-		  />
-		  @if ((deadlineTime.touched && deadlineTime.dirty) || showAllErrors) {
-		  @if (deadlineTime.errors?.['required']) {
-		  <p class="field-error">(Deadline Time is required)</p>
-		  }
-		  } -->
         </div>
 
         <div class="form-group half-width">
           <label for="control-estimated-time"
             >Estimated Time <span class="required-astrick">*</span></label
           >
-          <div class="time-picker-group">
-            <div class="time-picker-field">
-              <select
-                id="control-estimated-hours"
-                formControlName="estimatedCompletionTimeMinutes"
-                class="form-input time-select"
-                [class.error]="
-                  estimatedCompletionTimeMinutes.touched &&
-                  estimatedCompletionTimeMinutes.dirty &&
-                  estimatedCompletionTimeMinutes.invalid
-                "
-              >
-                <option value="" disabled selected>Hours</option>
-                @for (hour of [0, 1, 2, 3, 4, 5, 6, 7, 8]; track hour) {
-                  <option [value]="hour * 60">{{ hour }}h</option>
-                }
-              </select>
-            </div>
-            <span class="time-separator">:</span>
-            <div class="time-picker-field">
-              <select
-                id="control-estimated-minutes"
-                class="form-input time-select"
-                [class.error]="
-                  estimatedCompletionTimeMinutes.touched &&
-                  estimatedCompletionTimeMinutes.dirty &&
-                  estimatedCompletionTimeMinutes.invalid
-                "
-              >
-                <option value="0" selected>0m</option>
-                @for (min of [15, 30, 45]; track min) {
-                  <option [value]="min">{{ min }}m</option>
-                }
-              </select>
-            </div>
+
+          <div class="custom-dropdown-for-estimated-time">
+            <input
+              type="number"
+              class="form-input"
+              placeholder="Add"
+              formControlName="estimatedCompletionTimeMinutes"
+              autocomplete="off"
+              spellcheck="false"
+              (focus)="showCustomDropdownForCompletionTimeSelection($event)"
+              (blur)="onEstimatedTimeAssign($any($event.target).value)"
+              (keydown.enter)="onEstimatedTimeAssign($any($event.target).value)"
+              (input)="showDropdown = false"
+              autocomplete="off"
+              spellcheck="false"
+            />
           </div>
+
+          @if (showDropdown) {
+            <div
+              class="dropdown-options"
+              [style.top.px]="dropdownTop"
+              [style.left.px]="dropdownLeft"
+              [style.width.px]="width"
+            >
+              <div
+                class="dropdown-option"
+                (mousedown)="onEstimatedTimeAssign(60)"
+                (click)="showDropdown = false"
+              >
+                1 Hour
+              </div>
+              <div
+                (mousedown)="onEstimatedTimeAssign(90)"
+                class="dropdown-option"
+                (click)="showDropdown = false"
+              >
+                1 Hour 30 Minutes
+              </div>
+
+              <div
+                (mousedown)="onEstimatedTimeAssign(120)"
+                class="dropdown-option"
+                (click)="showDropdown = false"
+              >
+                2 Hour
+              </div>
+              <div
+                (mousedown)="onEstimatedTimeAssign(150)"
+                class="dropdown-option"
+                (click)="showDropdown = false"
+              >
+                2 Hour 30 Minutes
+              </div>
+              <div
+                (mousedown)="onEstimatedTimeAssign(180)"
+                class="dropdown-option"
+                (click)="showDropdown = false"
+              >
+                3 Hour
+              </div>
+            </div>
+          }
+
           @if (
             (estimatedCompletionTimeMinutes.touched && estimatedCompletionTimeMinutes.dirty) ||
             showAllErrors

@@ -33,6 +33,31 @@ export class FormTodoComponent implements OnInit {
     estimatedCompletionTimeMinutes: FormControl<number>;
   }>;
 
+
+  //to select time
+  showDropdown = false;
+  dropdownTop = 0;
+  dropdownLeft = 0;
+  width = 0; 
+
+  showCustomDropdownForCompletionTimeSelection(
+    event: FocusEvent,
+  ) {
+    const input = event.target as HTMLElement;
+    const rect = input.getBoundingClientRect();
+    this.dropdownTop = rect.bottom + 4;
+    this.dropdownLeft = rect.left;
+    this.showDropdown = true;
+    this.width = rect.width;
+  }
+
+  onEstimatedTimeAssign(timeInMinute: number ) {
+    this.showDropdown = false;
+    this.estimatedCompletionTimeMinutes.setValue(timeInMinute);
+  }
+
+
+
   ngOnInit() {
     this.description = new FormControl(this.todoFormData().description,{ nonNullable: true, validators:  [
       Validators.required,
