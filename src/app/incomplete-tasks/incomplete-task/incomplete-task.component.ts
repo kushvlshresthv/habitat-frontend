@@ -9,4 +9,8 @@ import { TaskSummary } from '../../models/models';
 })
 export class IncompleteTaskComponent {
   incompleteTask = input.required<TaskSummary>();
+
+  onStart() {
+    console.log('started');
+  }
 }
