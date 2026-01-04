@@ -1,0 +1,49 @@
+@use 'colors' as colors;
+@use 'constants' as constants;
+.heading {
+  font-size: constants.$font-xxl;
+  font-weight: constants.$font-weight-semibold;
+}
+
+.timer-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.timer-circle {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-background {
+  fill: none;
+  stroke: colors.$color-border-primary;
+  stroke-width: 8;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: colors.$color-button-primary;
+  stroke-width: 8;
+  stroke-dasharray: 565.5;
+  stroke-dashoffset: 565.5;
+  transition: stroke-dashoffset 1s linear;
+  stroke-linecap: round;
+}
+
+.timer-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.timer-display {
+  font-size: constants.$font-xxl;
+  font-weight: constants.$font-weight-semibold;
+  color: colors.$color-font-primary;
+}

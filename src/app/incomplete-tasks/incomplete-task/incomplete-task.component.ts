@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { TaskSummary } from '../../models/models';
 
 @Component({
@@ -9,8 +9,9 @@ import { TaskSummary } from '../../models/models';
 })
 export class IncompleteTaskComponent {
   incompleteTask = input.required<TaskSummary>();
-
+  startTask = output<TaskSummary>();
   onStart() {
     console.log('started');
+    this.startTask.emit(this.incompleteTask());
   }
 }

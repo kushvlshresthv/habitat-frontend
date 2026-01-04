@@ -1,5 +1,5 @@
-@use "colors" as colors;
-@use "constants" as constants;
+@use 'colors' as colors;
+@use 'constants' as constants;
 
 .task-card {
   display: flex;
@@ -14,7 +14,7 @@
 
   &:hover {
     background: colors.$color-card-hover;
-    border-color: colors.$color-border-focus;
+    // border-color: colors.$color-border-focus;
   }
 }
 
@@ -50,11 +50,25 @@
 }
 
 .btn-start {
-    font-size: constants.$font-large;
-    background: colors.$color-button-primary;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    border: none;
-    text-align: center;
+  background: colors.$color-button-primary;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  padding-left: 8px;
+
+  &:hover {
+    background: colors.$color-button-primary-hover;
+  }
+
+  &:active {
+    background: colors.$color-button-primary-active;
+  }
 }

@@ -6,7 +6,6 @@
   margin-top: constants.$header-height;
   display: flex;
   flex-direction: row;
-  gap: 20px;
 }
 
 app-left-sidebar {
@@ -23,10 +22,7 @@ app-right-sidebar {
   flex-grow: 1;
   overflow: auto;
   scrollbar-gutter: stable;
-}
-
-.screen-with-sidebars {
-    // padding: 0px 20px;
+  padding: 20px;
 }
 
 

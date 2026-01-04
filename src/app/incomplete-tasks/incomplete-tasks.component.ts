@@ -5,10 +5,11 @@ import { ApiResponse } from '../utils/api_response';
 import { BACKEND_URL } from '../utils/global_constants';
 import { TaskSummary } from '../models/models';
 import { IncompleteTaskComponent } from './incomplete-task/incomplete-task.component';
+import { OngoingTaskComponent } from '../ongoing-task/ongoing-task.component';
 
 @Component({
   selector: 'app-incomplete-tasks',
-  imports: [IncompleteTaskComponent],
+  imports: [IncompleteTaskComponent, OngoingTaskComponent],
   templateUrl: './incomplete-tasks.component.html',
   styleUrl: './incomplete-tasks.component.scss',
 })
@@ -32,5 +33,11 @@ export class IncompleteTasksComponent {
 	console.log("error", error);
       }
     });
+  }
+
+  ongoingTask: TaskSummary | null = null;
+
+  startTask(task: TaskSummary) {
+    this.ongoingTask = task;
   }
 }
