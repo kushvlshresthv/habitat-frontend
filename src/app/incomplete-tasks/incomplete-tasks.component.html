@@ -1,5 +1,9 @@
-<h2>Incomplete Tasks</h2>
+<h2 class="heading">Incomplete Tasks</h2>
 
-@for(incompleteTask of incompleteTasks ; track $index) {
-    <app-incomplete-task [incompleteTask]="incompleteTask"></app-incomplete-task>
-}
+<div class="incomplete-tasks-wrapper">
+  <div class="incomplete-tasks">
+    @for (incompleteTask of incompleteTasks; track $index) {
+      <app-incomplete-task [incompleteTask]="incompleteTask"></app-incomplete-task>
+    }
+  </div>
+</div>
