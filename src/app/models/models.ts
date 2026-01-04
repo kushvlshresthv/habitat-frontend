@@ -9,3 +9,8 @@ export interface Popup {
   displayTime: number;
 }
 
+export interface TaskSummary {
+  description: string;
+  deadlineDate: string;
+  estimatedCompletionTimeMinutes: number;
+}

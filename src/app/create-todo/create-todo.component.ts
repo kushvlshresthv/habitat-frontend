@@ -30,7 +30,7 @@ export class CreateTodoComponent {
   onFormSave(requestBody: TodoCreation) {
 
     this.httpClient
-      .post<Response>(BACKEND_URL + '/api/create-todo', requestBody, {
+      .post<Response>(BACKEND_URL + '/api/todo', requestBody, {
         withCredentials: true,
       })
       .subscribe({
