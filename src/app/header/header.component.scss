@@ -50,6 +50,7 @@ svg {
 
 .create-options {
     position: absolute;
+    cursor: pointer;
     right: 0;
     top: 55px;
     flex-direction: column;
@@ -61,8 +62,16 @@ svg {
     font-size: constants.$font-normal;
 }
 
+.option:hover {
+    color: white;
+}
+
 .create-options.show {
     display: flex;
+}
+
+.svg-icon {
+    cursor: pointer;
 }
 
 .svg-icon:hover svg path, .show svg path  {

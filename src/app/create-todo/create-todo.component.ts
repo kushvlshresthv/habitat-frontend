@@ -16,7 +16,7 @@ export class CreateTodoComponent {
   todoFormData: TodoCreation = {
     description: '',
     deadlineDate: new Date().toISOString().split('T')[0],
-    estimatedCompletionTimeMinutes:59,
+    estimatedCompletionTimeMinutes:60,
   };
 
   constructor(

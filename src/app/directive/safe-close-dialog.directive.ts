@@ -11,10 +11,10 @@ export class SafeCloseDialog implements OnInit, OnDestroy {
 
   constructor(private dialogElementRef: ElementRef<HTMLDialogElement>, private router: Router) {}
 
-  // @HostListener('document:keydown.escape', ['$event'])
-  // onKeydown(event: Event) {
-  //     this.closeDialog();
-  // }
+  @HostListener('document:keydown.escape', ['$event'])
+  onKeydown(event: Event) {
+      this.closeDialog();
+  }
 
   // Close when clicking outside the dialog content
   @HostListener('click', ['$event'])
