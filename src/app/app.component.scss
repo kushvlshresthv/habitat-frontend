@@ -6,6 +6,8 @@
   margin-top: constants.$header-height;
   display: flex;
   flex-direction: row;
+  overflow: auto;
+  scrollbar-gutter: stable;
 }
 
 app-left-sidebar {
@@ -20,9 +22,10 @@ app-right-sidebar {
 
 .main-screen {
   flex-grow: 1;
-  overflow: auto;
-  scrollbar-gutter: stable;
+  // overflow: auto;
+  // scrollbar-gutter: stable;
   padding: 20px;
+  // border: 2px solid red;
 }
 
 
