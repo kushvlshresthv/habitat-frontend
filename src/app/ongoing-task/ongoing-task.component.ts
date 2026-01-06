@@ -13,12 +13,16 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
   elapsedSeconds = signal(0);
   totalSeconds = signal(0);
   progressPercentage = signal(0);
+  alreadyElapsedSeconds = signal(0);
 
   private timerInterval: any;
 
   ngOnInit() {
     this.totalSeconds.set(this.ongoingTask().estimatedCompletionTimeMinutes * 60);
+    this.alreadyElapsedSeconds.set(this.ongoingTask().totalElapsedSeconds);
     this.startTimer();
+    const elapsedTimeInMs = Date.now() - new Date(this.ongoingTask().lastResumedAt).getTime();
+    this.elapsedSeconds.set(Math.floor(elapsedTimeInMs / 1000));
   }
 
   ngOnDestroy() {

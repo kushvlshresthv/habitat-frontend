@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiResponse } from '../utils/api_response';
@@ -22,12 +22,15 @@ export class IncompleteTasksComponent {
   ) {}
 
   ngOnInit() {
-    this.httpClient.get<ApiResponse<TaskSummary[]>>(BACKEND_URL + "/api/incomplete-todos", {
+    this.httpClient.get<ApiResponse<TaskSummary[]>>(BACKEND_URL + "/api/incomplete-tasks", {
       withCredentials: true,
     }).subscribe( {
       next: (response)=> {
 	this.incompleteTasks = response.mainBody;
 	console.log(this.incompleteTasks);
+	const ongoingTask = this.incompleteTasks.find(task => task.status == "IN_PROGRESS");
+	if(ongoingTask != undefined)
+	  this.ongoingTask = ongoingTask;
       },
       error: (error)=> {
 	console.log("error", error);
@@ -38,6 +41,15 @@ export class IncompleteTasksComponent {
   ongoingTask: TaskSummary | null = null;
 
   startTask(task: TaskSummary) {
-    this.ongoingTask = task;
+    const params = new HttpParams().set("id", task.id);
+    this.httpClient.put<ApiResponse<TaskSummary>>(BACKEND_URL + "/api/start-todo", {}, {
+      withCredentials: true,
+      params: params,
+    }).subscribe({
+      next: (response) => {
+	this.ongoingTask = response.mainBody;
+	console.log(this.ongoingTask)
+      }
+    })
   }
 }
