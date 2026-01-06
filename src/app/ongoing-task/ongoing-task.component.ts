@@ -1,5 +1,8 @@
 import { Component, input, OnInit, OnDestroy, signal } from '@angular/core';
 import { TaskSummary } from '../models/models';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { BACKEND_URL } from '../utils/global_constants';
+import { ApiResponse } from '../utils/api_response';
 
 @Component({
   selector: 'app-ongoing-task',
@@ -18,33 +21,38 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
 
   private timerInterval: any;
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     //register a callback to be executed when the tab becomes inactive in order to recalculate the elapsed time
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
-	this.initializeTimerVariables();
+        this.initializeTimerVariables();
       }
     });
   }
 
-
   initializeTimerVariables() {
-    const elapsedTimeInMs = Date.now() - new Date(this.ongoingTask().lastResumedAt).getTime() + this.alreadyElapsedSeconds();
-    this.elapsedSeconds.set(Math.floor(elapsedTimeInMs / 1000));
+    if (this.ongoingTask().status == 'IN_PROGRESS') {
+      const elapsedTimeInMs =
+        Date.now() -
+        new Date(this.ongoingTask().lastResumedAt).getTime() +
+        this.alreadyElapsedSeconds();
+      this.elapsedSeconds.set(Math.floor(elapsedTimeInMs / 1000));
+    }else if(this.ongoingTask().status == "PAUSED") {
+      this.elapsedSeconds.set(this.alreadyElapsedSeconds());
+    }
 
     // Calculate initial progress percentage immediately
     const initialProgress = (this.elapsedSeconds() / this.totalSeconds()) * 100;
     this.progressPercentage.set(Math.min(initialProgress, 100));
-    
   }
 
   ngOnInit() {
+    console.log(this.ongoingTask());
     this.totalSeconds.set(this.ongoingTask().estimatedCompletionTimeMinutes * 60);
     this.alreadyElapsedSeconds.set(this.ongoingTask().totalElapsedSeconds);
-
     this.initializeTimerVariables();
 
-    this.startTimer();
+    if (this.ongoingTask().status == 'IN_PROGRESS') this.startTimer();
   }
 
   ngOnDestroy() {
@@ -68,5 +76,23 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  onPause() {
+    const httpParams = new HttpParams().set('id', this.ongoingTask().id);
+    this.httpClient
+      .put<ApiResponse<TaskSummary>>(
+        BACKEND_URL + '/api/pause-task',
+        {},
+        {
+          withCredentials: true,
+          params: httpParams,
+        },
+      )
+      .subscribe({
+        next: (response) => {
+          clearInterval(this.timerInterval);
+        },
+      });
   }
 }

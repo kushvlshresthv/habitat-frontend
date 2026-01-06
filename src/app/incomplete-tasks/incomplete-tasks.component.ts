@@ -28,7 +28,7 @@ export class IncompleteTasksComponent {
       next: (response)=> {
 	this.incompleteTasks = response.mainBody;
 	console.log(this.incompleteTasks);
-	const ongoingTask = this.incompleteTasks.find(task => task.status == "IN_PROGRESS");
+	const ongoingTask = this.incompleteTasks.find(task => task.status == "IN_PROGRESS" || task.status == "PAUSED");
 	if(ongoingTask != undefined)
 	  this.ongoingTask = ongoingTask;
       },
@@ -42,7 +42,7 @@ export class IncompleteTasksComponent {
 
   startTask(task: TaskSummary) {
     const params = new HttpParams().set("id", task.id);
-    this.httpClient.put<ApiResponse<TaskSummary>>(BACKEND_URL + "/api/start-todo", {}, {
+    this.httpClient.put<ApiResponse<TaskSummary>>(BACKEND_URL + "/api/start-task", {}, {
       withCredentials: true,
       params: params,
     }).subscribe({
