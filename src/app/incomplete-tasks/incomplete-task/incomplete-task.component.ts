@@ -9,6 +9,7 @@ import { TaskSummary } from '../../models/models';
 })
 export class IncompleteTaskComponent {
   incompleteTask = input.required<TaskSummary>();
+  ongoingTaskExists = input.required<Boolean>();
   startTask = output<TaskSummary>();
   onStart() {
     console.log('started');

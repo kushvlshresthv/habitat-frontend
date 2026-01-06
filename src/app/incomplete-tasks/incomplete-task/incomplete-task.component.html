@@ -9,6 +9,6 @@
     </div>
   </div>
   <div class="task-actions">
-    <button class="btn-start" (click)="onStart()">▷</button>
+    <button class="btn-start" [disabled]="ongoingTaskExists()" (click)="onStart()">▷</button>
   </div>
 </div>

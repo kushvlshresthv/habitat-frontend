@@ -10,6 +10,7 @@
       <app-incomplete-task
         [incompleteTask]="incompleteTask"
         (startTask)="startTask($event)"
+	[ongoingTaskExists]="ongoingTask != null"
       ></app-incomplete-task>
     }
   </div>

@@ -71,4 +71,10 @@
   &:active {
     background: colors.$color-button-primary-active;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed; //cursor becomes a cross sign
+    // background: colors.$color-button-primary-active;
+  }
 }

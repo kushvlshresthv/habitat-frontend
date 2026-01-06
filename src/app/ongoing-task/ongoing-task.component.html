@@ -8,6 +8,7 @@
       cy="100"
       r="90"
       [style.stroke-dashoffset]="565.5 - (565.5 * progressPercentage()) / 100"
+    [style.transition]="timerStarted ? 'stroke-dashoffset 1s linear' : 'none'"
     />
   </svg>
   <div class="timer-content">
