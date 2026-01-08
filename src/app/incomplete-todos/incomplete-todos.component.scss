@@ -2,14 +2,14 @@
 @use "colors" as colors;
 
 
-.incomplete-tasks {
+.incomplete-todos {
     width: 100%;
     height: 50vh;
     width: 600px;
     margin-top: 20px;
 }
 
-.incomplete-tasks-wrapper {
+.incomplete-todos-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;

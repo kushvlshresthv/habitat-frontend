@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IncompleteTasksComponent } from '../incomplete-tasks/incomplete-tasks.component';
+import { IncompleteTodosComponent } from '../incomplete-todos/incomplete-todos.component';
 
 @Component({
   selector: 'app-home',
-  imports: [IncompleteTasksComponent],
+  imports: [IncompleteTodosComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

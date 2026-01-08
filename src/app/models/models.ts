@@ -36,7 +36,7 @@ export interface Popup {
 }
 
 
-export interface TaskSummary {
+export interface Todo {
   id: number;
   description: string;
   status: string;

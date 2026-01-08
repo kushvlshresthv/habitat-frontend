@@ -1,18 +1,18 @@
 import { Component, input, OnInit, OnDestroy, signal, output } from '@angular/core';
-import { TaskSummary } from '../models/models';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BACKEND_URL } from '../utils/global_constants';
 import { ApiResponse } from '../utils/api_response';
+import { Todo } from '../models/models';
 
 @Component({
-  selector: 'app-ongoing-task',
+  selector: 'app-ongoing-todo',
   imports: [],
-  templateUrl: './ongoing-task.component.html',
-  styleUrl: './ongoing-task.component.scss',
+  templateUrl: './ongoing-todo.component.html',
+  styleUrl: './ongoing-todo.component.scss',
 })
-export class OngoingTaskComponent implements OnInit, OnDestroy {
-  ongoingTask = input.required<TaskSummary>();
-  taskCompleted = output<TaskSummary>();
+export class OngoingTodoComponent implements OnInit, OnDestroy {
+  ongoingTodo = input.required<Todo>();
+  todoCompleted = output<Todo>();
 
   elapsedSeconds = signal(0);
   totalSeconds = signal(0);
@@ -32,13 +32,13 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
   }
 
   initializeTimerVariables() {
-    if (this.ongoingTask().status == 'IN_PROGRESS') {
+    if (this.ongoingTodo().status == 'IN_PROGRESS') {
       const elapsedTimeInMs =
         Date.now() -
-        new Date(this.ongoingTask().lastResumedAt).getTime() +
+        new Date(this.ongoingTodo().lastResumedAt).getTime() +
         this.alreadyElapsedSeconds();
       this.elapsedSeconds.set(Math.floor(elapsedTimeInMs / 1000));
-    } else if (this.ongoingTask().status == 'PAUSED') {
+    } else if (this.ongoingTodo().status == 'PAUSED') {
       this.elapsedSeconds.set(this.alreadyElapsedSeconds());
     }
 
@@ -48,12 +48,12 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.ongoingTask());
-    this.totalSeconds.set(this.ongoingTask().estimatedCompletionTimeMinutes * 60);
-    this.alreadyElapsedSeconds.set(this.ongoingTask().totalElapsedSeconds);
+    console.log(this.ongoingTodo());
+    this.totalSeconds.set(this.ongoingTodo().estimatedCompletionTimeMinutes * 60);
+    this.alreadyElapsedSeconds.set(this.ongoingTodo().totalElapsedSeconds);
     this.initializeTimerVariables();
 
-    if (this.ongoingTask().status == 'IN_PROGRESS') this.startTimer();
+    if (this.ongoingTodo().status == 'IN_PROGRESS') this.startTimer();
   }
 
   stopTimer() {
@@ -72,7 +72,7 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
     this.timerInterval = setInterval(() => {
       if (this.elapsedSeconds() > this.totalSeconds()) {
 	this.stopTimer();
-        this.taskCompleted.emit(this.ongoingTask());
+        this.todoCompleted.emit(this.ongoingTodo());
       }
       const elapsed = this.elapsedSeconds() + 1;
       this.elapsedSeconds.set(elapsed);
@@ -89,10 +89,10 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
   }
 
   onPause() {
-    const httpParams = new HttpParams().set('id', this.ongoingTask().id);
+    const httpParams = new HttpParams().set('id', this.ongoingTodo().id);
     this.httpClient
-      .put<ApiResponse<TaskSummary>>(
-        BACKEND_URL + '/api/pause-task',
+      .put<ApiResponse<Todo>>(
+        BACKEND_URL + '/api/pause-todo',
         {},
         {
           withCredentials: true,

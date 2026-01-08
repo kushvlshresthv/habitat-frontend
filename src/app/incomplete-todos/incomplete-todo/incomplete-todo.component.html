@@ -1,0 +1,14 @@
+<div class="todo-card">
+  <div class="todo-content">
+    <div class="todo-description">
+      {{ incompleteTodo().description }}
+    </div>
+    <div class="todo-meta">
+      <span class="todo-deadline">Due: {{ incompleteTodo().deadlineDate }}</span>
+      <span class="todo-time">{{ incompleteTodo().estimatedCompletionTimeMinutes }} min</span>
+    </div>
+  </div>
+  <div class="todo-actions">
+    <button class="btn-start" [disabled]="ongoingTodoExists()" (click)="onStart()">▷</button>
+  </div>
+</div>

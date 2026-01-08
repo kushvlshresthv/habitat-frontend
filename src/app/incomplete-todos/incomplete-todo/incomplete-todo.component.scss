@@ -1,7 +1,7 @@
 @use 'colors' as colors;
 @use 'constants' as constants;
 
-.task-card {
+.todo-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,33 +18,33 @@
   }
 }
 
-.task-content {
+.todo-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.task-description {
+.todo-description {
   color: colors.$color-font-primary;
   font-size: constants.$font-normal;
   font-weight: constants.$font-weight-medium;
   line-height: 1.4;
 }
 
-.task-meta {
+.todo-meta {
   display: flex;
   gap: 16px;
   font-size: constants.$font-medium;
   color: colors.$color-font-muted;
 }
 
-.task-deadline,
-.task-time {
+.todo-deadline,
+.todo-time {
   font-weight: constants.$font-weight-normal;
 }
 
-.task-actions {
+.todo-actions {
   display: flex;
   align-items: center;
 }
