@@ -1,5 +1,5 @@
 @if (ongoingTask != null) {
-  <app-ongoing-task [ongoingTask]="ongoingTask"></app-ongoing-task>
+  <app-ongoing-task (taskCompleted)="onTaskCompleted($event)" [ongoingTask]="ongoingTask"></app-ongoing-task>
 }
 
   <!-- <h2 class="heading">Incomplete Tasks</h2>

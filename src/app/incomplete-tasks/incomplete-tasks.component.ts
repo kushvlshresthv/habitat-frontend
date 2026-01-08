@@ -38,10 +38,14 @@ export class IncompleteTasksComponent {
     });
   }
 
+  onTaskCompleted(taskSummary: TaskSummary) {
+    console.log("Task Completed")
+  }
+
   ongoingTask: TaskSummary | null = null;
 
   startTask(task: TaskSummary) {
-    const params = new HttpParams().set("id", task.id);
+    const params = new HttpParams().set("id", task.id).set("type", task.type);
     this.httpClient.put<ApiResponse<TaskSummary>>(BACKEND_URL + "/api/start-task", {}, {
       withCredentials: true,
       params: params,

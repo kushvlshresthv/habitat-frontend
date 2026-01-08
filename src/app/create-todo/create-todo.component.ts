@@ -24,11 +24,9 @@ export class CreateTodoComponent {
     private router: Router,
     private popupService: PopupService,
   ) {
-    console.log(new Date().toISOString().split('T')[0]);
   }
 
   onFormSave(requestBody: TodoCreation) {
-
     this.httpClient
       .post<Response>(BACKEND_URL + '/api/todo', requestBody, {
         withCredentials: true,

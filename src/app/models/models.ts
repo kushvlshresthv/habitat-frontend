@@ -1,23 +1,40 @@
-import id from "@angular/common/locales/id";
 
 export interface TodoCreation {
   description: string;
   deadlineDate: string;
   estimatedCompletionTimeMinutes: number;
 }
+
+export interface HabitFrequency {
+  [day: number]: {
+    durationMinutes: number;
+  };
+}
+
+export interface DayOfWeek {
+  id: number;
+  label: string;
+  name: string;
+  selected: boolean;
+  duration: number;
+}
+
+export interface HabitCreation {
+  habitName: string;
+  startDate: string;
+  endDate: string;
+  frequency: HabitFrequency;
+  cheatDays: number;
+  habitDuration: number;
+  daysOfWeek?: DayOfWeek[];
+}
+
 export interface Popup {
   message: string;
-  type: "Error" | "Success";
+  type: 'Error' | 'Success';
   displayTime: number;
 }
 
-    // Integer id;
-    // String description;
-    // String status;
-    // LocalDate deadlineDate;
-    // Integer estimatedCompletionTimeMinutes;
-    // Integer totalElapsedSeconds;
-    // LocalTime lastResumedAt;
 
 export interface TaskSummary {
   id: number;
@@ -27,4 +44,5 @@ export interface TaskSummary {
   estimatedCompletionTimeMinutes: number;
   totalElapsedSeconds: number;
   lastResumedAt: string;
+  type: 'Todo' | 'Habit';
 }

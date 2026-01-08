@@ -1,4 +1,4 @@
-import { Component, input, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, input, OnInit, OnDestroy, signal, output } from '@angular/core';
 import { TaskSummary } from '../models/models';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BACKEND_URL } from '../utils/global_constants';
@@ -12,6 +12,7 @@ import { ApiResponse } from '../utils/api_response';
 })
 export class OngoingTaskComponent implements OnInit, OnDestroy {
   ongoingTask = input.required<TaskSummary>();
+  taskCompleted = output<TaskSummary>();
 
   elapsedSeconds = signal(0);
   totalSeconds = signal(0);
@@ -37,7 +38,7 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
         new Date(this.ongoingTask().lastResumedAt).getTime() +
         this.alreadyElapsedSeconds();
       this.elapsedSeconds.set(Math.floor(elapsedTimeInMs / 1000));
-    }else if(this.ongoingTask().status == "PAUSED") {
+    } else if (this.ongoingTask().status == 'PAUSED') {
       this.elapsedSeconds.set(this.alreadyElapsedSeconds());
     }
 
@@ -55,15 +56,24 @@ export class OngoingTaskComponent implements OnInit, OnDestroy {
     if (this.ongoingTask().status == 'IN_PROGRESS') this.startTimer();
   }
 
-  ngOnDestroy() {
-    if (this.timerInterval) {
+  stopTimer() {
+    if (this.timerInterval !== null) {
       clearInterval(this.timerInterval);
+      this.timerInterval = null; // invalidate immediately
     }
+  }
+
+  ngOnDestroy() {
+    this.stopTimer();
   }
 
   startTimer() {
     this.timerStarted = false;
     this.timerInterval = setInterval(() => {
+      if (this.elapsedSeconds() > this.totalSeconds()) {
+	this.stopTimer();
+        this.taskCompleted.emit(this.ongoingTask());
+      }
       const elapsed = this.elapsedSeconds() + 1;
       this.elapsedSeconds.set(elapsed);
 
