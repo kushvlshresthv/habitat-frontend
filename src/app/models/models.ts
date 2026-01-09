@@ -6,9 +6,8 @@ export interface TodoCreation {
 }
 
 export interface HabitFrequency {
-  [day: number]: {
-    durationMinutes: number;
-  };
+  day: number;
+  durationMinutes: number;
 }
 
 export interface DayOfWeek {
@@ -20,13 +19,11 @@ export interface DayOfWeek {
 }
 
 export interface HabitCreation {
-  habitName: string;
+  name: string;
   startDate: string;
   endDate: string;
-  frequency: HabitFrequency;
   cheatDays: number;
-  habitDuration: number;
-  daysOfWeek?: DayOfWeek[];
+  frequencies: HabitFrequency[];
 }
 
 export interface Popup {

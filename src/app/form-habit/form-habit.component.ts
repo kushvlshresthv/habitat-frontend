@@ -22,6 +22,17 @@ export class FormHabitComponent implements OnInit {
   FORM_NAME = 'create_habit_form';
   diag = viewChild<ElementRef<HTMLDialogElement>>('create_habit_dialog');
 
+  //Day of week configuration
+    daysOfWeek: DayOfWeek[] = [
+      { id: 7, label: 'Su', name: 'Sunday', selected: false, duration: 60 },
+      { id: 1, label: 'Mo', name: 'Monday', selected: false, duration: 60 },
+      { id: 2, label: 'Tu', name: 'Tuesday', selected: false, duration: 60 },
+      { id: 3, label: 'We', name: 'Wednesday', selected: false, duration: 60 },
+      { id: 4, label: 'Th', name: 'Thursday', selected: false, duration: 60 },
+      { id: 5, label: 'Fr', name: 'Friday', selected: false, duration: 60 },
+      { id: 6, label: 'Sa', name: 'Saturday', selected: false, duration: 60 },
+    ];
+
   // Form controls
   habitName!: FormControl<string>;
   startDate!: FormControl<string>;
@@ -37,8 +48,6 @@ export class FormHabitComponent implements OnInit {
     habitDuration: FormControl<number>;
   }>;
 
-  // Days of the week configuration
-  daysOfWeek: DayOfWeek[] = [];
 
   showAdvancedSettings = false;
   showAllErrors = false;
@@ -46,7 +55,7 @@ export class FormHabitComponent implements OnInit {
   constructor(private popupService: PopupService) {}
 
   ngOnInit() {
-    this.habitName = new FormControl(this.habitFormData().habitName, {
+    this.habitName = new FormControl(this.habitFormData().name, {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(2), Validators.maxLength(100)],
     });
@@ -66,7 +75,7 @@ export class FormHabitComponent implements OnInit {
       validators: [Validators.required, Validators.min(0)],
     });
 
-    this.habitDuration = new FormControl(this.habitFormData().habitDuration, {
+    this.habitDuration = new FormControl(60, {
       nonNullable: true,
       validators: [Validators.required, Validators.min(1)],
     });
@@ -78,11 +87,6 @@ export class FormHabitComponent implements OnInit {
       cheatDays: this.cheatDays,
       habitDuration: this.habitDuration,
     });
-
-    // Initialize daysOfWeek from habitFormData
-    if (this.habitFormData().daysOfWeek) {
-      this.daysOfWeek = [...this.habitFormData().daysOfWeek!];
-    }
   }
 
   ngAfterViewInit(): void {
@@ -124,21 +128,21 @@ export class FormHabitComponent implements OnInit {
       return;
     }
 
-    // Build frequency object
-    const frequency: HabitFrequency = {};
+    // Build frequencies object
+    const frequencies: HabitFrequency[] = [];
     selectedDays.forEach((day) => {
-      frequency[day.id] = {
-        durationMinutes: this.showAdvancedSettings ? day.duration : this.habitDuration.value,
-      };
+      frequencies.push({
+	day: day.id,
+	durationMinutes: this.showAdvancedSettings ? day.duration : this.habitDuration.value,
+      })
     });
 
     const habitCreation: HabitCreation = {
-      habitName: this.habitName.value,
+      name: this.habitName.value,
       startDate: this.startDate.value,
       endDate: this.endDate.value,
-      frequency: frequency,
+      frequencies: frequencies,
       cheatDays: this.cheatDays.value,
-      habitDuration: this.habitDuration.value,
     };
 
     localStorage.removeItem(this.FORM_NAME);
