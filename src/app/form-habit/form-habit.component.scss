@@ -12,6 +12,16 @@
 
   &[open] {
     display: flex;
+    flex-direction: column;
+  }
+
+  &.expanded {
+    width: 900px;
+    max-width: 90vw;
+
+    &[open] {
+      flex-direction: row;
+    }
   }
 
   &::backdrop {
@@ -26,6 +36,11 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+
+  .expanded & {
+    width: 600px;
+    flex-shrink: 0;
+  }
 }
 
 .actual-form {
@@ -118,7 +133,7 @@ form label,
     outline: none;
     border-color: colors.$color-border-focus;
     background: colors.$color-background-input-hover;
-    box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.1);
+    // box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.1);
   }
 
   &:hover:not(:focus) {
@@ -238,24 +253,67 @@ form label,
   }
 }
 
-// Advanced Settings Toggle
-.advanced-settings-toggle {
-  background: transparent;
-  border: none;
-  color: colors.$color-font-primary;
-  font-size: constants.$font-normal;
-  font-weight: constants.$font-weight-medium;
+.form-group.with-checkbox {
+    flex-direction: row;
+}
+
+.check-box {
+  width: 18px;
+  height: 18px;
   cursor: pointer;
-  padding: 8px 0;
-  text-align: left;
-  transition: all 0.2s ease;
+  accent-color: colors.$color-button-primary;
+  // background-color: colors.$color-background-input;
+  background-color: grey;
+  border: 1px solid colors.$color-border-primary;
+  border-radius: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+
+  &:checked {
+    background-color: colors.$color-button-primary;
+    border-color: colors.$color-button-primary;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      width: 4px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+// Checkbox Container
+.checkbox-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 0;
 
-  &:hover {
-    color: colors.$color-button-primary-hover;
+  .checkbox-label {
+    font-size: constants.$font-normal;
+    color: colors.$color-font-primary;
+    font-weight: constants.$font-weight-medium;
+    text-transform: none;
+    letter-spacing: normal;
+    cursor: pointer;
   }
+}
+
+// Advanced Settings Panel (Horizontal)
+.advanced-settings-panel {
+  width: 300px;
+  flex-shrink: 0;
+  background: colors.$color-background-input;
+  border-left: 1px solid colors.$color-border-primary;
+  overflow: auto;
 }
 
 // Advanced Settings Section
@@ -263,10 +321,7 @@ form label,
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 16px;
-  background: colors.$color-background-input;
-  border: 1px solid colors.$color-border-primary;
-  border-radius: 6px;
+  padding: 20px;
 }
 
 .settings-description {

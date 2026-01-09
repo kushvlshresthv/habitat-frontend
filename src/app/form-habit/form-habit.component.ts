@@ -109,7 +109,8 @@ export class FormHabitComponent implements OnInit {
     }
   }
 
-  toggleAdvancedSettings() {
+  toggleAdvancedSettings(event: Event) {
+    event.stopPropagation();
     this.showAdvancedSettings = !this.showAdvancedSettings;
   }
 
