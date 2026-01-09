@@ -1,0 +1,14 @@
+<div class="todo-card">
+  <div class="todo-content">
+    <div class="todo-description">
+      {{ expiredTodo().description }}
+    </div>
+    <div class="todo-meta">
+      <span class="todo-deadline">Due: {{ expiredTodo().deadlineDate }}</span>
+      <span class="todo-time">{{ expiredTodo().estimatedCompletionTimeMinutes }} min</span>
+    </div>
+  </div>
+  <div class="todo-actions">
+    <button class="btn-start">▷</button>
+  </div>
+</div>

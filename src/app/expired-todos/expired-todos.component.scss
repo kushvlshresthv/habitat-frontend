@@ -1,0 +1,20 @@
+@use "constants" as constants;
+@use "colors" as colors;
+
+.expired-todos {
+    width: 100%;
+    height: 50vh;
+    width: 600px;
+    margin-top: 20px;
+}
+
+.expired-todos-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading {
+  font-size: constants.$font-xxl;
+  font-weight: constants.$font-weight-semibold;
+}

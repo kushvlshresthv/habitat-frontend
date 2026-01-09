@@ -1,0 +1,9 @@
+<div class="expired-todos-wrapper">
+  <div class="expired-todos">
+    @for (expiredTodo of expiredTodos; track $index) {
+      <app-expired-todo
+        [expiredTodo]="expiredTodo"
+      ></app-expired-todo>
+    }
+  </div>
+</div>

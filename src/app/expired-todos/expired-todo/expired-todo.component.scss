@@ -1,0 +1,81 @@
+@use 'colors' as colors;
+@use 'constants' as constants;
+
+.todo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: colors.$color-background-card;
+  border-bottom: 1px solid colors.$color-border-primary;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid red;
+
+  &:hover {
+    background: colors.$color-card-hover;
+    // border-color: colors.$color-border-focus;
+  }
+}
+
+.todo-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-description {
+  color: colors.$color-font-primary;
+  font-size: constants.$font-normal;
+  font-weight: constants.$font-weight-medium;
+  line-height: 1.4;
+}
+
+.todo-meta {
+  display: flex;
+  gap: 16px;
+  font-size: constants.$font-medium;
+  color: colors.$color-font-muted;
+}
+
+.todo-deadline,
+.todo-time {
+  font-weight: constants.$font-weight-normal;
+}
+
+.todo-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-start {
+  background: colors.$color-button-primary;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  padding-left: 8px;
+
+  &:hover {
+    background: colors.$color-button-primary-hover;
+  }
+
+  &:active {
+    background: colors.$color-button-primary-active;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed; //cursor becomes a cross sign
+    // background: colors.$color-button-primary-active;
+  }
+}
