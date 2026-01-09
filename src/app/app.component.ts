@@ -34,10 +34,16 @@ export class App {
     // Using Alt + N instead to avoid browser conflict
     const isAltPressed = event.altKey;
     const isNPressed = event.code === 'KeyN';
+    const isHPressed = event.code == 'KeyH';
 
     if (isAltPressed && isNPressed) {
       event.preventDefault();
       this.router.navigate(['/create-todo']);
+    } else if(isAltPressed && isHPressed) {
+      event.preventDefault();
+      this.router.navigate(['/create-habit'])
     }
   }
+
+
 }
