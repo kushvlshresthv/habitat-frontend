@@ -87,7 +87,15 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
     this.stopTimer();
   }
 
-  onPause() {
+  togglePause() {
+    if(this.ongoingTodo().status == "PAUSED") {
+      this.resumeTodo();
+    } else if(this.ongoingTodo().status == "IN_PROGRESS") {
+      this.pauseTodo();
+    }
+  }
+
+  pauseTodo() {
     const httpParams = new HttpParams().set('id', this.ongoingTodo().id);
     this.httpClient
       .put<ApiResponse<Todo>>(
@@ -106,7 +114,7 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
       });
   }
 
-  onResume() {
+  resumeTodo() {
     const httpParams = new HttpParams().set('id', this.ongoingTodo().id);
     this.httpClient
       .put<ApiResponse<Todo>>(

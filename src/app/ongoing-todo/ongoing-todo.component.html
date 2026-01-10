@@ -18,9 +18,19 @@
   </div>
 
   <div class="timer-options">
-    <button class="pause-button" (click)="onPause()">⏸</button>
+    <button
+      class="pause-resume-button"
+      (click)="togglePause()"
+      [class.resume]="ongoingTodo().status == 'PAUSED'"
+    >
+      @if (ongoingTodo().status == 'PAUSED') {
+        ▷
+      } @else {
+        ⏸
+      }
+    </button>
   </div>
-  <div class="timer-options">
-    <button class="resume-button" (click)="onResume()">▷</button>
-  </div>
+  <!-- <div class="timer-options">
+       <button class="resume-button" (click)="onResume()">▷</button>
+       </div> -->
 </div>
