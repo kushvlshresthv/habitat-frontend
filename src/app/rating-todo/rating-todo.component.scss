@@ -1,0 +1,138 @@
+@use 'colors' as colors;
+@use 'constants' as constants;
+
+.main-dialog {
+  width: 700px;
+  max-width: 90vw;
+  background: colors.$color-background-card;
+  border: 1px solid colors.$color-border-primary;
+  padding: 0;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  border-radius: 5px;
+
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+}
+
+.rating-panel {
+  width: 100%;
+  background: colors.$color-background-card;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid colors.$color-border-primary;
+  background: colors.$color-background-card;
+
+  h2 {
+    margin: 0;
+    font-size: constants.$font-large;
+    font-weight: constants.$font-weight-semibold;
+    color: colors.$color-font-primary;
+    letter-spacing: 0.5px;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: colors.$color-font-muted;
+    font-size: constants.$font-xl;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: colors.$color-background-input-hover;
+      color: colors.$color-font-primary;
+    }
+  }
+}
+
+.rating-content {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rating-instruction {
+  margin: 0;
+  font-size: constants.$font-normal;
+  color: colors.$color-font-secondary;
+  text-align: center;
+}
+
+.rating-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.rating-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rating-option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  background: colors.$color-background-input;
+  border: 1px solid colors.$color-border-primary;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: colors.$color-font-primary;
+  font-size: constants.$font-normal;
+
+  &:hover {
+    background: colors.$color-background-input-hover;
+    border-color: colors.$color-border-focus;
+    transform: translateX(4px);
+  }
+
+  &:active {
+    transform: translateX(2px);
+  }
+
+  .rating-value {
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: colors.$color-button-primary;
+    color: white;
+    border-radius: 50%;
+    font-weight: constants.$font-weight-semibold;
+    font-size: constants.$font-medium;
+  }
+
+  .rating-label {
+    flex: 1;
+    text-align: left;
+    font-weight: constants.$font-weight-medium;
+    letter-spacing: 0.3px;
+  }
+}

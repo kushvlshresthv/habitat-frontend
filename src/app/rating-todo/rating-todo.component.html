@@ -1,0 +1,31 @@
+<dialog class="main-dialog" #rating_dialog>
+  <div class="rating-panel">
+    <div class="panel-header">
+      <h2>RATE YOUR EFFORT</h2>
+      <button class="close-btn" (click)="onCancel()">✕</button>
+    </div>
+
+    <div class="rating-content">
+      <p class="rating-instruction">How engaged were you with this task?</p>
+
+      <div class="rating-options-grid">
+        <div class="rating-column">
+          @for (option of ratingOptions.slice(0, 6); track option.value) {
+          <button class="rating-option" (click)="onRatingSelect(option.value)">
+            <span class="rating-value">{{ option.value }}</span>
+            <span class="rating-label">{{ option.label }}</span>
+          </button>
+          }
+        </div>
+        <div class="rating-column">
+          @for (option of ratingOptions.slice(6); track option.value) {
+          <button class="rating-option" (click)="onRatingSelect(option.value)">
+            <span class="rating-value">{{ option.value }}</span>
+            <span class="rating-label">{{ option.label }}</span>
+          </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>

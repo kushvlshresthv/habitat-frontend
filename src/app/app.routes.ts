@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { isNotAuthenticated } from './app.guards';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { CreateHabitComponent } from './create-habit/create-habit.component';
+import { RatingTodoComponent } from './rating-todo/rating-todo.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     canMatch: [isNotAuthenticated],
+  },
+  {
+    path: 'rating',
+    component: RatingTodoComponent,
   },
   {
     path: 'home',

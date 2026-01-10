@@ -26,15 +26,14 @@
           spellcheck="false"
           autocomplete="off"
         />
-        @if ((habitName.touched && habitName.dirty) || showAllErrors) {
-          @if (habitName.errors?.['required']) {
-            <p class="field-error">Habit name is required</p>
-          } @else if (habitName.errors?.['minlength']) {
-            <p class="field-error">Habit name should be at least 2 characters long</p>
-          } @else if (habitName.errors?.['maxlength']) {
-            <p class="field-error">Habit name should be under 100 characters</p>
-          }
-        }
+        @if ((habitName.touched && habitName.dirty) || showAllErrors) { @if
+        (habitName.errors?.['required']) {
+        <p class="field-error">Habit name is required</p>
+        } @else if (habitName.errors?.['minlength']) {
+        <p class="field-error">Habit name should be at least 2 characters long</p>
+        } @else if (habitName.errors?.['maxlength']) {
+        <p class="field-error">Habit name should be under 100 characters</p>
+        } }
       </div>
 
       <!-- Start Date and End Date -->
@@ -48,11 +47,10 @@
             class="form-input"
             [class.error]="startDate.touched && startDate.dirty && startDate.invalid"
           />
-          @if ((startDate.touched && startDate.dirty) || showAllErrors) {
-            @if (startDate.errors?.['required']) {
-              <p class="field-error">Start date is required</p>
-            }
-          }
+          @if ((startDate.touched && startDate.dirty) || showAllErrors) { @if
+          (startDate.errors?.['required']) {
+          <p class="field-error">Start date is required</p>
+          } }
         </div>
 
         <div class="form-group half-width">
@@ -64,11 +62,10 @@
             class="form-input"
             [class.error]="endDate.touched && endDate.dirty && endDate.invalid"
           />
-          @if ((endDate.touched && endDate.dirty) || showAllErrors) {
-            @if (endDate.errors?.['required']) {
-              <p class="field-error">End date is required</p>
-            }
-          }
+          @if ((endDate.touched && endDate.dirty) || showAllErrors) { @if
+          (endDate.errors?.['required']) {
+          <p class="field-error">End date is required</p>
+          } }
         </div>
       </div>
 
@@ -87,13 +84,12 @@
             min="0"
             [class.error]="cheatDays.touched && cheatDays.dirty && cheatDays.invalid"
           />
-          @if ((cheatDays.touched && cheatDays.dirty) || showAllErrors) {
-            @if (cheatDays.errors?.['required']) {
-              <p class="field-error">Number of cheat days is required</p>
-            } @else if (cheatDays.errors?.['min']) {
-              <p class="field-error">Cheat days cannot be negative</p>
-            }
-          }
+          @if ((cheatDays.touched && cheatDays.dirty) || showAllErrors) { @if
+          (cheatDays.errors?.['required']) {
+          <p class="field-error">Number of cheat days is required</p>
+          } @else if (cheatDays.errors?.['min']) {
+          <p class="field-error">Cheat days cannot be negative</p>
+          } }
         </div>
 
         <!-- Habit Duration (Default) -->
@@ -110,13 +106,12 @@
             min="1"
             [class.error]="habitDuration.touched && habitDuration.dirty && habitDuration.invalid"
           />
-          @if ((habitDuration.touched && habitDuration.dirty) || showAllErrors) {
-            @if (habitDuration.errors?.['required']) {
-              <p class="field-error">Habit duration is required</p>
-            } @else if (habitDuration.errors?.['min']) {
-              <p class="field-error">Duration must be at least 1 minute</p>
-            }
-          }
+          @if ((habitDuration.touched && habitDuration.dirty) || showAllErrors) { @if
+          (habitDuration.errors?.['required']) {
+          <p class="field-error">Habit duration is required</p>
+          } @else if (habitDuration.errors?.['min']) {
+          <p class="field-error">Duration must be at least 1 minute</p>
+          } }
         </div>
       </div>
 
@@ -125,15 +120,15 @@
         <label>Habit Frequency<span class="required-astrick">*</span></label>
         <div class="days-selector">
           @for (day of daysOfWeek; track day.id) {
-            <button
-              type="button"
-              class="day-button"
-              [class.selected]="day.selected"
-              (click)="toggleDay(day.id)"
-              [title]="day.name"
-            >
-              {{ day.label }}
-            </button>
+          <button
+            type="button"
+            class="day-button"
+            [class.selected]="day.selected"
+            (click)="toggleDay(day.id)"
+            [title]="day.name"
+          >
+            {{ day.label }}
+          </button>
           }
         </div>
       </div>
@@ -142,7 +137,7 @@
       <div class="form-group with-checkbox">
         <input
           type="checkbox"
-	  class="check-box"
+          class="check-box"
           [checked]="showAdvancedSettings"
           (change)="toggleAdvancedSettings($event)"
         />
@@ -155,26 +150,24 @@
 
   <!-- Advanced Settings Panel -->
   @if (showAdvancedSettings) {
-    <div class="advanced-settings-panel">
-      <div class="advanced-settings">
-        <p class="settings-description">Set Custom Duration:</p>
-        @for (day of daysOfWeek; track day.id) {
-          @if (day.selected) {
-            <div class="day-duration-row">
-              <label class="day-label">{{ day.name }}</label>
-              <input
-                type="number"
-                class="form-input duration-input"
-                [value]="day.duration"
-                (input)="updateDayDuration(day.id, $any($event.target).value)"
-                min="1"
-                placeholder="Duration in minutes"
-              />
-              <span class="unit-label">minutes</span>
-            </div>
-          }
-        }
+  <div class="advanced-settings-panel">
+    <div class="advanced-settings">
+      <p class="settings-description">Set Custom Duration:</p>
+      @for (day of daysOfWeek; track day.id) { @if (day.selected) {
+      <div class="day-duration-row">
+        <label class="day-label">{{ day.name }}</label>
+        <input
+          type="number"
+          class="form-input duration-input"
+          [value]="day.duration"
+          (input)="updateDayDuration(day.id, $any($event.target).value)"
+          min="1"
+          placeholder="Duration in minutes"
+        />
+        <span class="unit-label">minutes</span>
       </div>
+      } }
     </div>
+  </div>
   }
 </dialog>
