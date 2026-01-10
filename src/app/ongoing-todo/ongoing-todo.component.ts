@@ -17,7 +17,6 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
   elapsedSeconds = signal(0);
   totalSeconds = signal(0);
   progressPercentage = signal(0);
-  alreadyElapsedSeconds = signal(0);
   timerStarted = false;
 
   private timerInterval: any;
@@ -26,20 +25,28 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
     //register a callback to be executed when the tab becomes inactive in order to recalculate the elapsed time
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
-        this.initializeTimerVariables();
+        this.initializeElapsedSeconds();
       }
     });
   }
 
-  initializeTimerVariables() {
+  ngOnInit() {
+    console.log(this.ongoingTodo());
+    this.totalSeconds.set(this.ongoingTodo().estimatedCompletionTimeMinutes * 60);
+    this.initializeElapsedSeconds();
+
+    if (this.ongoingTodo().status == 'IN_PROGRESS') this.startTimer();
+  }
+
+  initializeElapsedSeconds() {
     if (this.ongoingTodo().status == 'IN_PROGRESS') {
       const elapsedTimeInMs =
         Date.now() -
         new Date(this.ongoingTodo().lastResumedAt).getTime() +
-        this.alreadyElapsedSeconds();
+        this.ongoingTodo().totalElapsedSeconds * 1000;
       this.elapsedSeconds.set(Math.floor(elapsedTimeInMs / 1000));
     } else if (this.ongoingTodo().status == 'PAUSED') {
-      this.elapsedSeconds.set(this.alreadyElapsedSeconds());
+      this.elapsedSeconds.set(this.ongoingTodo().totalElapsedSeconds);
     }
 
     // Calculate initial progress percentage immediately
@@ -47,31 +54,12 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
     this.progressPercentage.set(Math.min(initialProgress, 100));
   }
 
-  ngOnInit() {
-    console.log(this.ongoingTodo());
-    this.totalSeconds.set(this.ongoingTodo().estimatedCompletionTimeMinutes * 60);
-    this.alreadyElapsedSeconds.set(this.ongoingTodo().totalElapsedSeconds);
-    this.initializeTimerVariables();
-
-    if (this.ongoingTodo().status == 'IN_PROGRESS') this.startTimer();
-  }
-
-  stopTimer() {
-    if (this.timerInterval !== null) {
-      clearInterval(this.timerInterval);
-      this.timerInterval = null; // invalidate immediately
-    }
-  }
-
-  ngOnDestroy() {
-    this.stopTimer();
-  }
 
   startTimer() {
-    this.timerStarted = false;
+    this.timerStarted = true;
     this.timerInterval = setInterval(() => {
       if (this.elapsedSeconds() > this.totalSeconds()) {
-	this.stopTimer();
+        this.stopTimer();
         this.todoCompleted.emit(this.ongoingTodo());
       }
       const elapsed = this.elapsedSeconds() + 1;
@@ -88,6 +76,17 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   }
 
+  stopTimer() {
+    if (this.timerInterval !== null) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null; // invalidate immediately
+    }
+  }
+
+  ngOnDestroy() {
+    this.stopTimer();
+  }
+
   onPause() {
     const httpParams = new HttpParams().set('id', this.ongoingTodo().id);
     this.httpClient
@@ -102,6 +101,29 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           clearInterval(this.timerInterval);
+          this.ongoingTodo().status = 'PAUSED';
+        },
+      });
+  }
+
+  onResume() {
+    const httpParams = new HttpParams().set('id', this.ongoingTodo().id);
+    this.httpClient
+      .put<ApiResponse<Todo>>(
+        BACKEND_URL + '/api/start-todo',
+        {},
+        {
+          withCredentials: true,
+          params: httpParams,
+        },
+      )
+      .subscribe({
+        next: (response) => {
+	  this.ongoingTodo().totalElapsedSeconds = response.mainBody.totalElapsedSeconds;
+	  this.ongoingTodo().lastResumedAt = response.mainBody.lastResumedAt;
+	  this.initializeElapsedSeconds();
+	  this.startTimer();
+          this.ongoingTodo().status = 'IN_PROGRESS';
         },
       });
   }

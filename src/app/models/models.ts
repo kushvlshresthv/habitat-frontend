@@ -32,12 +32,11 @@ export interface Popup {
   displayTime: number;
 }
 
-
 export interface Todo {
   id: number;
   description: string;
   status: string;
-  deadlineDate: string;
+  deadlineDate: "NOT_STARTED" | "IN_PROGRESS" | "PAUSED" | "COMPLETED";
   estimatedCompletionTimeMinutes: number;
   totalElapsedSeconds: number;
   lastResumedAt: string;
