@@ -3,16 +3,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BACKEND_URL } from '../utils/global_constants';
 import { ApiResponse } from '../utils/api_response';
 import { Todo } from '../models/models';
+import { RatingTodoComponent } from '../rating-todo/rating-todo.component';
 
 @Component({
   selector: 'app-ongoing-todo',
-  imports: [],
+  imports: [RatingTodoComponent],
   templateUrl: './ongoing-todo.component.html',
   styleUrl: './ongoing-todo.component.scss',
 })
 export class OngoingTodoComponent implements OnInit, OnDestroy {
   ongoingTodo = input.required<Todo>();
-  todoCompleted = output<Todo>();
+
 
   elapsedSeconds = signal(0);
   totalSeconds = signal(0);
@@ -25,7 +26,9 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
     //register a callback to be executed when the tab becomes inactive in order to recalculate the elapsed time
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) {
+	this.timerStarted = false;
         this.initializeElapsedSeconds();
+	this.timerStarted = true;
       }
     });
   }
@@ -55,12 +58,15 @@ export class OngoingTodoComponent implements OnInit, OnDestroy {
   }
 
 
+  ongoingTodoCompleted = false;
+
   startTimer() {
     this.timerStarted = true;
     this.timerInterval = setInterval(() => {
-      if (this.elapsedSeconds() > this.totalSeconds()) {
+      if (this.elapsedSeconds() >= this.totalSeconds()) {
         this.stopTimer();
-        this.todoCompleted.emit(this.ongoingTodo());
+	this.ongoingTodoCompleted = true;
+	return;
       }
       const elapsed = this.elapsedSeconds() + 1;
       this.elapsedSeconds.set(elapsed);

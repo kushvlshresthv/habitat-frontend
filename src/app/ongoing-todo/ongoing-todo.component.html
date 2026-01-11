@@ -1,36 +1,40 @@
-<!-- <h2 class="heading">Ongoing Todo</h2> -->
-<div class="ongoing-todo">
-  <div class="timer-container">
-    <svg class="timer-circle" viewBox="0 0 200 200">
-      <circle class="timer-background" cx="100" cy="100" r="90" />
-      <circle
-        class="timer-progress"
-        cx="100"
-        cy="100"
-        r="90"
-        [style.stroke-dashoffset]="565.5 - (565.5 * progressPercentage()) / 100"
-        [style.transition]="timerStarted ? 'stroke-dashoffset 1s linear' : 'none'"
-      />
-    </svg>
-    <div class="timer-content">
-      <div class="timer-display">{{ formatTime(elapsedSeconds()) }}</div>
+@if (ongoingTodoCompleted) {
+  <app-rating-todo [todoId]="ongoingTodo().id"></app-rating-todo>
+} @else {
+  <!-- <h2 class="heading">Ongoing Todo</h2> -->
+  <div class="ongoing-todo">
+    <div class="timer-container">
+      <svg class="timer-circle" viewBox="0 0 200 200">
+        <circle class="timer-background" cx="100" cy="100" r="90" />
+        <circle
+          class="timer-progress"
+          cx="100"
+          cy="100"
+          r="90"
+          [style.stroke-dashoffset]="565.5 - (565.5 * progressPercentage()) / 100"
+          [style.transition]="timerStarted ? 'stroke-dashoffset 1s linear' : 'none'"
+        />
+      </svg>
+      <div class="timer-content">
+        <div class="timer-display">{{ formatTime(elapsedSeconds()) }}</div>
+      </div>
     </div>
-  </div>
 
-  <div class="timer-options">
-    <button
-      class="pause-resume-button"
-      (click)="togglePause()"
-      [class.resume]="ongoingTodo().status == 'PAUSED'"
-    >
-      @if (ongoingTodo().status == 'PAUSED') {
-        ▷
-      } @else {
-        ⏸
-      }
-    </button>
-  </div>
-  <!-- <div class="timer-options">
+    <div class="timer-options">
+      <button
+        class="pause-resume-button"
+        (click)="togglePause()"
+        [class.resume]="ongoingTodo().status == 'PAUSED'"
+      >
+        @if (ongoingTodo().status == 'PAUSED') {
+          ▷
+        } @else {
+          ⏸
+        }
+      </button>
+    </div>
+    <!-- <div class="timer-options">
        <button class="resume-button" (click)="onResume()">▷</button>
        </div> -->
-</div>
+  </div>
+}

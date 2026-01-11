@@ -39,10 +39,6 @@ export class IncompleteTodosComponent {
     });
   }
 
-  onTodoCompleted(todoSummary: Todo) {
-    console.log("Todo Completed")
-  }
-
   ongoingTodo: Todo | null = null;
 
   startTodo(todo: Todo) {

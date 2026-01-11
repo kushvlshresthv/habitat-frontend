@@ -1,4 +1,8 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ElementRef, input, signal, viewChild } from '@angular/core';
+import { BACKEND_URL } from '../utils/global_constants';
+import { ApiResponse } from '../utils/api_response';
+import { PopupService } from '../popup/popup.service';
 
 @Component({
   selector: 'app-rating-todo',
@@ -8,8 +12,8 @@ import { Component, ElementRef, input, signal, viewChild } from '@angular/core';
 })
 export class RatingTodoComponent {
   // Input for todoId
-  // todoId = input.required<string>();
-  todoId = signal(1);
+  todoId = input.required<number>();
+  // todoId = signal(1);
 
   // View child for dialog
   diag = viewChild<ElementRef<HTMLDialogElement>>('rating_dialog');
@@ -29,6 +33,11 @@ export class RatingTodoComponent {
     { value: 10, label: 'COMPLETELY IMMERSED' },
   ];
 
+  constructor(
+    private httpClient: HttpClient,
+    private popupService: PopupService,
+  ) {}
+
   ngAfterViewInit(): void {
     // Show the dialog
     if (this.diag() && !this.diag()!.nativeElement.open) {
@@ -38,7 +47,22 @@ export class RatingTodoComponent {
 
   onRatingSelect(rating: number): void {
     console.log(`TodoID: ${this.todoId()}, Rating: ${rating}`);
-    this.diag()!.nativeElement.close();
+    const httpParams = new HttpParams().set('id', this.todoId()).set('ratingValue', rating);
+    this.httpClient
+      .put<ApiResponse<Object>>(
+        BACKEND_URL + '/api/rate-todo',
+        {},
+        {
+          withCredentials: true,
+          params: httpParams,
+        },
+      )
+      .subscribe({
+        next: (response) => {
+          this.popupService.showPopup('Task Completed Successfully', 'Success', 2000);
+          this.diag()!.nativeElement.close();
+        },
+      });
   }
 
   onCancel(): void {

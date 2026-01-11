@@ -18,10 +18,6 @@ export const routes: Routes = [
     canMatch: [isNotAuthenticated],
   },
   {
-    path: 'rating',
-    component: RatingTodoComponent,
-  },
-  {
     path: 'home',
     component: HomeComponent,
   },
