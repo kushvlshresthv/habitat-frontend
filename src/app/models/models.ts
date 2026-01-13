@@ -42,3 +42,11 @@ export interface Todo {
   lastResumedAt: string;
   type: 'Todo' | 'Habit';
 }
+
+
+export interface LeaderboardRow {
+  uid: number;
+  username: string;
+  xp: number;
+  level: number;
+}

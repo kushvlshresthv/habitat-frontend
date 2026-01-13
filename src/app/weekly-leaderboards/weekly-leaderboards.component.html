@@ -1,0 +1,14 @@
+<div class="leaderboards-container">
+  <h2 class="leaderboards-heading">Weekly Leaderboards</h2>
+  <div class="leaderboards-list">
+    @if (leaderboardRows && leaderboardRows.length > 0) {
+      @for (row of leaderboardRows; track row.uid) {
+        <app-leaderboard-row [leaderboardRow]="row"></app-leaderboard-row>
+      }
+    } @else {
+      <div class="empty-state">
+        <p>No leaderboard data available</p>
+      </div>
+    }
+  </div>
+</div>

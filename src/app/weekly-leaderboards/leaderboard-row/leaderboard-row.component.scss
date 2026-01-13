@@ -1,0 +1,66 @@
+@use 'colors' as colors;
+@use 'constants' as constants;
+
+.leaderboard-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: colors.$color-background-card;
+  border-bottom: 1px solid colors.$color-border-primary;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: colors.$color-card-hover;
+  }
+}
+
+.rank-section {
+  display: flex;
+  align-items: center;
+  min-width: 50px;
+}
+
+.rank-badge {
+  font-size: constants.$font-large;
+  font-weight: constants.$font-weight-semibold;
+  // color: colors.$color-button-primary;
+}
+
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.username {
+  color: colors.$color-font-primary;
+  font-size: constants.$font-normal;
+  font-weight: constants.$font-weight-medium;
+  line-height: 1.4;
+}
+
+.user-meta {
+  display: flex;
+  gap: 16px;
+  font-size: constants.$font-medium;
+  color: colors.$color-font-muted;
+}
+
+.level {
+  font-weight: constants.$font-weight-normal;
+}
+
+.xp-section {
+  display: flex;
+  align-items: center;
+}
+
+.xp-value {
+  font-size: constants.$font-normal;
+  font-weight: constants.$font-weight-semibold;
+  color: colors.$color-font-primary;
+}
