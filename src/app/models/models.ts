@@ -1,4 +1,3 @@
-
 export interface TodoCreation {
   description: string;
   deadlineDate: string;
@@ -36,17 +35,21 @@ export interface Todo {
   id: number;
   description: string;
   status: string;
-  deadlineDate: "NOT_STARTED" | "IN_PROGRESS" | "PAUSED" | "COMPLETED";
+  deadlineDate: 'NOT_STARTED' | 'IN_PROGRESS' | 'PAUSED' | 'COMPLETED';
   estimatedCompletionTimeMinutes: number;
   totalElapsedSeconds: number;
   lastResumedAt: string;
   type: 'Todo' | 'Habit';
 }
 
-
 export interface LeaderboardRow {
   uid: number;
   username: string;
   xp: number;
   level: number;
+}
+
+export interface Activity {
+  date: string;
+  xp: number;
 }

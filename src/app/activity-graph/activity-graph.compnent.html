@@ -1,0 +1,36 @@
+<div class="activity-graph-wrapper">
+  <div class="activity-graph">
+    <!-- Month labels row -->
+    <div class="month-row">
+	<!-- <div class="day-label-spacer"></div> -->
+      @for (month of monthLabels; track month.name + $index) {
+        <div class="month-label" [style.width.px]="month.colSpan * 12 + (month.colSpan - 1) * 4">
+          {{ month.name }}
+        </div>
+      }
+    </div>
+
+    <!-- Grid with day labels and cells -->
+    <div class="graph-body">
+      <div class="day-labels">
+        @for (day of dayLabels; track $index) {
+          <div class="day-label">{{ day }}</div>
+        }
+      </div>
+
+      <div class="weeks">
+        @for (week of weeks; track $index) {
+          <div class="week">
+            @for (day of week.days; track $index) {
+              @if (day !== null) {
+                <app-activity [activity]="day" [maxXp]="maxXp"></app-activity>
+              } @else {
+                <div class="empty-cell"></div>
+              }
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

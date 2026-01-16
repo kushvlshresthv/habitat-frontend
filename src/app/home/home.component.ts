@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IncompleteTodosComponent } from '../incomplete-todos/incomplete-todos.component';
 import { ExpiredTodosComponent } from '../expired-todos/expired-todos.component';
+import { ActivityGraphCompnent } from '../activity-graph/activity-graph.compnent';
 
 @Component({
   selector: 'app-home',
-  imports: [IncompleteTodosComponent, ExpiredTodosComponent],
+  imports: [IncompleteTodosComponent, ExpiredTodosComponent, ActivityGraphCompnent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

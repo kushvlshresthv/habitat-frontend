@@ -17,9 +17,9 @@ export class WeeklyLeaderboardsComponent implements OnInit {
 
   ngOnInit() {
     this.httpClient
-      .get<
-        ApiResponse<LeaderboardRow[]>
-      >(BACKEND_URL + '/api/weekly-leaderboards', { withCredentials: true })
+      .get<ApiResponse<LeaderboardRow[]>>(BACKEND_URL + '/api/weekly-leaderboards', {
+        withCredentials: true,
+      })
       .subscribe({
         next: (response) => {
           this.leaderboardRows = response.mainBody;

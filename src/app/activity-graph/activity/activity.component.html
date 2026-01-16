@@ -1,0 +1,9 @@
+<div
+  class="activity-cell"
+  [class.level-0]="level() === 0"
+  [class.level-1]="level() === 1"
+  [class.level-2]="level() === 2"
+  [class.level-3]="level() === 3"
+  [class.level-4]="level() === 4"
+  [title]="activity().date + ': ' + activity().xp + ' XP'"
+></div>

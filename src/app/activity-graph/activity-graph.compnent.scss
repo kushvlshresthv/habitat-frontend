@@ -1,0 +1,67 @@
+@use 'colors' as colors;
+@use 'constants' as constants;
+
+$cell-size: 12px;
+$gap: 4px;
+
+.activity-graph-wrapper {
+  padding: 16px;
+}
+
+.activity-graph {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.month-row {
+  display: flex;
+  margin-left: 32px;
+}
+
+// .day-label-spacer {
+//   width: 0;
+// }
+
+.month-label {
+  font-size: constants.$font-small;
+  color: colors.$color-font-muted;
+  text-align: left;
+  overflow: hidden;
+}
+
+.graph-body {
+  display: flex;
+  gap: 4px;
+}
+
+.day-labels {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  width: 28px;
+}
+
+.day-label {
+  height: $cell-size;
+  font-size: constants.$font-small;
+  color: colors.$color-font-muted;
+  display: flex;
+  align-items: center;
+}
+
+.weeks {
+  display: flex;
+  gap: $gap;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+.empty-cell {
+  width: $cell-size;
+  height: $cell-size;
+}
