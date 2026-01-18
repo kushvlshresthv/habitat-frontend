@@ -2,6 +2,11 @@
 @use "constants" as constants;
 
 :host {
+  position: fixed;
+  top: constants.$header-height; // distance from top of viewport
+  left: 0; // distance from left of viewport
+  width: constants.$left-sidebar-width;
+  z-index: 9998; // make sure it's above everything but below the header
   min-height: 100vh;
 }
 
@@ -105,15 +110,15 @@
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: constants.$sidebar-height-mobile;
-    min-height: constants.$sidebar-height-mobile;
+    height: constants.$mobile-sidebar-height;
+    min-height: constants.$mobile-sidebar-height;
     z-index: 9998;
     border-top: 1px solid colors.$color-border-primary;
   }
 
   .sidebar {
     flex-direction: row;
-    height: constants.$sidebar-height-mobile;
+    height: constants.$mobile-sidebar-height;
     border-right: none;
   }
 

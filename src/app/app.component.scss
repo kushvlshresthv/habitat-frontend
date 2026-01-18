@@ -4,28 +4,22 @@
 
 .screen-with-sidebars {
   margin-top: constants.$header-height;
-  display: flex;
-  flex-direction: row;
+  height: calc(100vh - constants.$header-height);
   overflow: auto;
   scrollbar-gutter: stable;
-  align-items: stretch;
 }
 
 app-left-sidebar {
     border-right: 1px solid colors.$color-border-primary;
-    width: 60px;
 }
 
 app-right-sidebar {
     border-left: 1px solid colors.$color-border-primary;
-    width: 300px;
 }
 
 .main-screen {
-  height: calc(100vh - constants.$header-height);
-  flex-grow: 1;
-  overflow: auto;
-  scrollbar-gutter: stable;
+  margin-left: constants.$left-sidebar-width;
+  margin-right: constants.$right-sidebar-width;
   padding: 20px;
   // border: 2px solid red;
 }
