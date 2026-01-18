@@ -1,13 +1,14 @@
 @use "constants" as constants;
 @use "colors" as colors;
 
+
 .screen-with-sidebars {
-  height: calc(100vh - constants.$header-height);
   margin-top: constants.$header-height;
   display: flex;
   flex-direction: row;
   overflow: auto;
   scrollbar-gutter: stable;
+  align-items: stretch;
 }
 
 app-left-sidebar {
@@ -21,9 +22,10 @@ app-right-sidebar {
 }
 
 .main-screen {
+  height: calc(100vh - constants.$header-height);
   flex-grow: 1;
-  // overflow: auto;
-  // scrollbar-gutter: stable;
+  overflow: auto;
+  scrollbar-gutter: stable;
   padding: 20px;
   // border: 2px solid red;
 }

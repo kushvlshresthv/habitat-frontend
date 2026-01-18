@@ -10,7 +10,7 @@ body  {
   color: colors.$color-font-primary;
 
   background-color: colors.$color-background-primary;
-  scrollbar-gutter: stable; //reserves space for scrollbar even when not visible to prevent layout shift
+  overflow: hidden;
 }
 
 button {
