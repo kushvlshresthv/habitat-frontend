@@ -4,7 +4,7 @@
     <div class="month-row">
 	<!-- <div class="day-label-spacer"></div> -->
       @for (month of monthLabels; track month.name + $index) {
-        <div class="month-label" [style.width.px]="month.colSpan * 12 + (month.colSpan - 1) * 4">
+        <div class="month-label" [style.width.px]="month.colSpan * 12 + (month.colSpan) * 4">
           {{ month.name }}
         </div>
       }

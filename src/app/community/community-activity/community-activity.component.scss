@@ -1,0 +1,66 @@
+@use 'colors' as colors;
+@use 'constants' as constants;
+
+.activity-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.activity-timeline {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 20px;
+  position: relative;
+  border-left: 2px solid colors.$color-border-primary;
+  margin-left: 8px;
+
+  // &:last-child {
+  //   border-left-color: transparent;
+  // }
+}
+
+.timeline-dot {
+  width: 12px;
+  height: 12px;
+  background: colors.$color-button-primary;
+  border-radius: 50%;
+  position: absolute;
+  left: -7px;
+  top: 18px;
+}
+
+.timeline-content {
+  color: colors.$color-font-secondary;
+  font-size: constants.$font-normal;
+  line-height: 1.5;
+  padding-left: 16px;
+}
+
+.username {
+  color: colors.$color-font-primary;
+  font-weight: constants.$font-weight-semibold;
+}
+
+.duration {
+  color: colors.$color-font-primary;
+  font-weight: constants.$font-weight-medium;
+}
+
+.rating {
+  color: colors.$color-font-primary;
+  font-weight: constants.$font-weight-medium;
+}
+
+.xp {
+  color: colors.$color-font-primary;
+  font-weight: constants.$font-weight-semibold;
+}

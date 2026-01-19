@@ -4,12 +4,13 @@ import { HomeComponent } from './home/home.component';
 import { isNotAuthenticated } from './app.guards';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { CreateHabitComponent } from './create-habit/create-habit.component';
+import { CommunityComponent } from './community/community.component';
 
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full',
+    pathMatch: 'full' ,
   },
   {
     path: 'login',
@@ -27,5 +28,9 @@ export const routes: Routes = [
   {
     path: 'create-habit',
     component: CreateHabitComponent,
+  },
+  {
+    path: 'community',
+    component: CommunityComponent,
   }
 ];

@@ -1,0 +1,17 @@
+<div class="activity-wrapper">
+  <div class="activity-timeline">
+    @for (completion of recentCompletions; track $index) {
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <span class="username">{{ completion.username }}</span> completed
+        <span class="duration">{{
+          formatDuration(completion.estimatedCompletionTimeMinutes)
+        }}</span>
+        task, rated <span class="rating">{{ completion.rating }}/10</span>, gained
+        <span class="xp">{{ completion.xp }}xp</span>
+      </div>
+    </div>
+    }
+  </div>
+</div>
