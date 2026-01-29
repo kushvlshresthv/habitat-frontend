@@ -1,22 +1,18 @@
 @use 'colors' as colors;
 @use 'constants' as constants;
-// .heading {
-//   font-size: constants.$font-xxl;
-//   font-weight: constants.$font-weight-semibold;
-// }
 
 .ongoing-todo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .timer-container {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 280px;
+  height: 280px;
   margin: 0 auto;
 }
 
@@ -29,13 +25,13 @@
 .timer-background {
   fill: none;
   stroke: colors.$color-border-primary;
-  stroke-width: 8;
+  stroke-width: 7;
 }
 
 .timer-progress {
   fill: none;
   stroke: colors.$color-button-primary;
-  stroke-width: 8;
+  stroke-width: 7;
   stroke-dasharray: 565.5;
   stroke-dashoffset: 565.5;
   stroke-linecap: round;
@@ -47,22 +43,32 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
 .timer-display {
-  font-size: constants.$font-xxl;
+  font-size: 3rem;
   font-weight: constants.$font-weight-semibold;
   color: colors.$color-font-primary;
 }
 
+.estimated-time {
+  font-size: constants.$font-normal;
+  font-weight: constants.$font-weight-medium;
+  color: colors.$color-font-muted;
+}
+
 .pause-resume-button {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   padding: 0;
   color: white;
   background: colors.$color-border-primary;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -80,6 +86,6 @@
 }
 
 .pause-resume-button.resume {
-    font-size: 18px;
-    padding-left: 5px;
+  font-size: 22px;
+  padding-left: 5px;
 }

@@ -1,7 +1,14 @@
-<div class="todo-card">
+<div class="todo-card" [class.in-progress]="isInProgress()">
   <div class="todo-content">
-    <div class="todo-description">
-      {{ incompleteTodo().description }}
+    <div class="todo-header">
+      <div class="todo-description">
+        {{ incompleteTodo().description }}
+      </div>
+      @if (isInProgress()) {
+        <span class="status-badge">{{
+          incompleteTodo().status === 'PAUSED' ? 'Paused' : 'In Progress'
+        }}</span>
+      }
     </div>
     <div class="todo-meta">
       <span class="todo-deadline">Due: {{ incompleteTodo().deadlineDate }}</span>

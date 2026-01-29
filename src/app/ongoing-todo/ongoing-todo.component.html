@@ -1,7 +1,6 @@
 @if (ongoingTodoCompleted) {
   <app-rating-todo [todoId]="ongoingTodo().id"></app-rating-todo>
 } @else {
-  <!-- <h2 class="heading">Ongoing Todo</h2> -->
   <div class="ongoing-todo">
     <div class="timer-container">
       <svg class="timer-circle" viewBox="0 0 200 200">
@@ -17,6 +16,7 @@
       </svg>
       <div class="timer-content">
         <div class="timer-display">{{ formatTime(elapsedSeconds()) }}</div>
+        <div class="estimated-time">/ {{ formatTime(totalSeconds()) }}</div>
       </div>
     </div>
 
@@ -33,8 +33,5 @@
         }
       </button>
     </div>
-    <!-- <div class="timer-options">
-       <button class="resume-button" (click)="onResume()">▷</button>
-       </div> -->
   </div>
 }

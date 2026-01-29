@@ -34,8 +34,8 @@ export interface Popup {
 export interface Todo {
   id: number;
   description: string;
-  status: string;
-  deadlineDate: 'NOT_STARTED' | 'IN_PROGRESS' | 'PAUSED' | 'COMPLETED';
+  deadlineDate: string;
+  status: 'NOT_STARTED' | 'IN_PROGRESS' | 'PAUSED' | 'COMPLETED';
   estimatedCompletionTimeMinutes: number;
   totalElapsedSeconds: number;
   lastResumedAt: string;

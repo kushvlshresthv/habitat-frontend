@@ -1,17 +1,19 @@
 @if (ongoingTodo != null) {
-  <app-ongoing-todo  [ongoingTodo]="ongoingTodo"></app-ongoing-todo>
+  <app-ongoing-todo [ongoingTodo]="ongoingTodo"></app-ongoing-todo>
 }
 
-  <!-- <h2 class="heading">Incomplete Todos</h2>
-  -->
 <div class="incomplete-todos-wrapper">
   <div class="incomplete-todos">
     @for (incompleteTodo of incompleteTodos; track $index) {
       <app-incomplete-todo
         [incompleteTodo]="incompleteTodo"
         (startTodo)="startTodo($event)"
-	[ongoingTodoExists]="ongoingTodo != null"
+        [ongoingTodoExists]="ongoingTodo != null"
       ></app-incomplete-todo>
     }
+
+      <!-- [isInProgress]="
+           incompleteTodo.status === 'IN_PROGRESS' || incompleteTodo.status === 'PAUSED'
+           " -->
   </div>
 </div>

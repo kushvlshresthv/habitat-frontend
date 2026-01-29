@@ -14,7 +14,24 @@
 
   &:hover {
     background: colors.$color-card-hover;
-    // border-color: colors.$color-border-focus;
+  }
+
+  &.in-progress {
+    border-left: 3px solid colors.$color-button-primary;
+    // background: rgba(colors.$color-button-primary, 0.08);
+    box-shadow: 0 4px 16px rgba(colors.$color-button-primary, 0.2);
+    position: relative;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 4px 16px rgba(colors.$color-button-primary, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(colors.$color-button-primary, 0.35);
   }
 }
 
@@ -25,11 +42,30 @@
   gap: 10px;
 }
 
+.todo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .todo-description {
   color: colors.$color-font-primary;
   font-size: constants.$font-normal;
   font-weight: constants.$font-weight-medium;
   line-height: 1.4;
+}
+
+.status-badge {
+  font-size: constants.$font-small;
+  font-weight: constants.$font-weight-semibold;
+  // color: colors.$color-button-primary;
+  color: colors.$color-font-primary;
+  background: rgba(colors.$color-button-primary, 0.15);
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .todo-meta {
